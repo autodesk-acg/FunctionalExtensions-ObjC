@@ -1,0 +1,8 @@
+xcodeproj 'FunctionalExtensions-ObjC'
+platform :ios, '6.0'
+
+target 'FunctionalExtensions-ObjCTests', :exclusive => true do
+	pod 'Kiwi/XCTest', '~> 2.2.3'
+end
+
+pod 'FunctionalExtensions-ObjC', :path => '../../'
