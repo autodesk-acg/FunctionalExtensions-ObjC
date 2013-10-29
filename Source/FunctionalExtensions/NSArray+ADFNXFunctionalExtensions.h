@@ -19,9 +19,9 @@
 
 
 // Scala-style functional extensions for NSArray.
-@interface NSArray (ADFNXFunctionalExtensions)
+@interface NSArray (FNXFunctionalExtensions)
 @end
 
 
-@interface NSArray (ADFNXTraversable) <ADFNXTraversable>
+@interface NSArray (ADFNXTraversable) <FNXTraversable>
 @end

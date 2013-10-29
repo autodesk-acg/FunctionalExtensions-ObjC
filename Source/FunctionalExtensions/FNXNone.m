@@ -14,12 +14,12 @@
  * (Rights  in Technical Data and Computer Software),  as applicable.
  *******************************************************************/
 
-#import "ADFNXNone.h"
+#import "FNXNone.h"
 
 
-@implementation ADFNXNone
+@implementation FNXNone
 
-+ (ADFNXNone *)none
++ (FNXNone *)none
 {
     static dispatch_once_t once;
     static id sharedInstance;
@@ -48,7 +48,7 @@
 
 // Selects all elements except the last.
 // Abstract
-- (id<ADFNXTraversable>)initial
+- (id<FNXTraversable>)initial
 {
     @throw [[NSException alloc] initWithName:@"ADFNXUnsupportedOperation"
                                       reason:NSLocalizedString(@"Empty initial", @"Message when [ADFNXNone initial] is called")
@@ -86,7 +86,7 @@
 
 // Selects all elements except the first.
 // Abstract
-- (id<ADFNXTraversable>)tail
+- (id<FNXTraversable>)tail
 {
     @throw [[NSException alloc] initWithName:@"ADFNXUnsupportedOperation"
                                       reason:NSLocalizedString(@"Tail of empty list", @"Message when [ADFNXNone tail] is called")

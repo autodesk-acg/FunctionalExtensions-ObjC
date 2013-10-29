@@ -18,21 +18,21 @@
 #import "ADFNXTraversable.h"
 
 
-@interface ADFNXOption : NSObject
+@interface FNXOption : NSObject
 
 // Counts the number of elements in the collection which satisfy a predicate.
 - (NSUInteger)count:(BOOL (^)(id obj))pred;
 
 // Returns this ADFNXOption if it is nonempty and applying the predicate pred to
 // this ADFNXOption's value returns YES. Otherwise, return ADFNXNone.
-- (ADFNXOption *)filter:(BOOL (^)(id obj))pred;
+- (FNXOption *)filter:(BOOL (^)(id obj))pred;
 
 // Returns this ADFNXOption if it is nonempty and applying the predicate pred
 // to this option's value returns NO.
-- (ADFNXOption *)filterNot:(BOOL (^)(id obj))pred;
+- (FNXOption *)filterNot:(BOOL (^)(id obj))pred;
 
 // Returns the result of applying fn to this ADFNXOption's value if this ADFNXOption is nonempty.
-- (ADFNXOption *)flatMap:(ADFNXOption *(^)(id obj))fn;
+- (FNXOption *)flatMap:(FNXOption *(^)(id obj))fn;
 
 // Returns YES if this option is empty or the predicate pred returns YES when applied
 // to this ADFNXOption's value.
@@ -57,17 +57,17 @@
 - (BOOL)isEmpty;
 
 // Returns a ADFNXSome containing the result of applying fn to this option's value if this option is nonempty.
-- (ADFNXOption *)map:(id (^)(id obj))fn;
+- (FNXOption *)map:(id (^)(id obj))fn;
 
 // Returns NO if the option is ADNFXNone, YES otherwise.
 // Abstract
 - (BOOL)nonEmpty;
 
 // Returns this ADFNXOption if it is nonempty, otherwise return the result of evaluating alternative.
-- (ADFNXOption *)orElse:(ADFNXOption *(^)(void))alternative;
+- (FNXOption *)orElse:(FNXOption *(^)(void))alternative;
 
 @end
 
 
-@interface ADFNXOption (ADFNXTraversable) <ADFNXTraversable>
+@interface FNXOption (ADFNXTraversable) <FNXTraversable>
 @end

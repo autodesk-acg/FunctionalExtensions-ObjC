@@ -15,16 +15,16 @@
  *******************************************************************/
 
 #import <XCTest/XCTest.h>
-#import "ADFNXNone.h"
-#import "ADFNXSome.h"
+#import "FNXNone.h"
+#import "FNXSome.h"
 
 
-@interface ADFNXOptionTest : XCTestCase
+@interface FNXOptionTest : XCTestCase
 
 @end
 
 
-@implementation ADFNXOptionTest
+@implementation FNXOptionTest
 
 - (void)setUp
 {
@@ -40,32 +40,32 @@
 
 - (void)testIsDefinedWithSome
 {
-    ADFNXOption *optN = [ADFNXSome someWithValue:@(1)];
+    FNXOption *optN = [FNXSome someWithValue:@(1)];
     XCTAssertTrue(optN.isDefined, @"Option with Some should be defined.");
 }
 
 - (void)testIsDefinedWithNone
 {
-    ADFNXOption *optN = [ADFNXNone none];
+    FNXOption *optN = [FNXNone none];
     XCTAssertFalse(optN.isDefined, @"Option with None should not be defined.");
 }
 
 - (void)testIsEmptyWithSome
 {
-    ADFNXOption *optN = [ADFNXSome someWithValue:@(1)];
+    FNXOption *optN = [FNXSome someWithValue:@(1)];
     XCTAssertFalse(optN.isEmpty, @"Option with Some should be not empty.");
 }
 
 - (void)testIsEmptyWithNone
 {
-    ADFNXOption *optN = [ADFNXNone none];
+    FNXOption *optN = [FNXNone none];
     XCTAssertTrue(optN.isEmpty, @"Option with None should be empty.");
 }
 
 - (void)testMapWithSome
 {
-    ADFNXOption *optN = [ADFNXSome someWithValue:@(1)];
-    ADFNXOption *optMappedN = [optN map:^id(NSNumber *obj) {
+    FNXOption *optN = [FNXSome someWithValue:@(1)];
+    FNXOption *optMappedN = [optN map:^id(NSNumber *obj) {
         return @(obj.intValue * 3);
     }];
     XCTAssertEqualObjects(optMappedN.get, @(3), @"Mapped option with Some didn't yield correct value.");
@@ -73,8 +73,8 @@
 
 - (void)testMapWithNone
 {
-    ADFNXOption *optN = [ADFNXNone none];
-    ADFNXOption *optMappedN = [optN map:^id(NSNumber *obj) {
+    FNXOption *optN = [FNXNone none];
+    FNXOption *optMappedN = [optN map:^id(NSNumber *obj) {
         return @(obj.intValue * 3);
     }];
     XCTAssertTrue(optMappedN.isEmpty, @"Mapped option with None didn't yield correct value.");
@@ -82,9 +82,9 @@
 
 - (void)testChainedOptionsWithSome
 {
-    ADFNXOption *name = [ADFNXSome someWithValue:@"  test    "];
+    FNXOption *name = [FNXSome someWithValue:@"  test    "];
     
-    ADFNXOption *upper =
+    FNXOption *upper =
     [[[name
     map:^id(NSString *obj) { return [obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; }]
     filter:^BOOL(NSString *obj) { return obj.length > 0; }]
@@ -95,9 +95,9 @@
 
 - (void)testChainedOptionsWithNone
 {
-    ADFNXOption *name = [ADFNXNone none];
+    FNXOption *name = [FNXNone none];
     
-    ADFNXOption *upper =
+    FNXOption *upper =
     [[[name
        map:^id(NSString *obj) { return [obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; }]
       filter:^BOOL(NSString *obj) { return obj.length > 0; }]

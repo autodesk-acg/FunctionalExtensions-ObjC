@@ -21,7 +21,7 @@
 		163BA058181E1685005C197F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 163BA037181E1685005C197F /* Foundation.framework */; };
 		163BA059181E1685005C197F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 163BA03B181E1685005C197F /* UIKit.framework */; };
 		163BA061181E1685005C197F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 163BA05F181E1685005C197F /* InfoPlist.strings */; };
-		163BA06E181E31B2005C197F /* ADFNXOptionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 163BA06D181E31B2005C197F /* ADFNXOptionTest.m */; };
+		163BA06E181E31B2005C197F /* FNXOptionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 163BA06D181E31B2005C197F /* FNXOptionTest.m */; };
 		4C4882B1C4E54274AB2C7A76 /* libPods-FunctionalExtensions-ObjCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B13FD5812E541A1B07154B2 /* libPods-FunctionalExtensions-ObjCTests.a */; };
 /* End PBXBuildFile section */
 
@@ -54,7 +54,7 @@
 		163BA056181E1685005C197F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		163BA05E181E1685005C197F /* FunctionalExtensions-ObjCTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FunctionalExtensions-ObjCTests-Info.plist"; sourceTree = "<group>"; };
 		163BA060181E1685005C197F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		163BA06D181E31B2005C197F /* ADFNXOptionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFNXOptionTest.m; sourceTree = "<group>"; };
+		163BA06D181E31B2005C197F /* FNXOptionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNXOptionTest.m; sourceTree = "<group>"; };
 		1B13FD5812E541A1B07154B2 /* libPods-FunctionalExtensions-ObjCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FunctionalExtensions-ObjCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		335D1D0E0CCB43DE88A508AB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		416D3DA3359D490A89CB48A0 /* Pods-FunctionalExtensions-ObjCTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunctionalExtensions-ObjCTests.xcconfig"; path = "Pods/Pods-FunctionalExtensions-ObjCTests.xcconfig"; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 		163BA05C181E1685005C197F /* FunctionalExtensions-ObjCTests */ = {
 			isa = PBXGroup;
 			children = (
-				163BA06D181E31B2005C197F /* ADFNXOptionTest.m */,
+				163BA06D181E31B2005C197F /* FNXOptionTest.m */,
 				163BA05D181E1685005C197F /* Supporting Files */,
 			);
 			path = "FunctionalExtensions-ObjCTests";
@@ -339,7 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				163BA06E181E31B2005C197F /* ADFNXOptionTest.m in Sources */,
+				163BA06E181E31B2005C197F /* FNXOptionTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,12 +14,12 @@
  * (Rights  in Technical Data and Computer Software),  as applicable.
  *******************************************************************/
 
-#import "ADFNXOption.h"
+#import "FNXOption.h"
 
 
-@interface ADFNXNone : ADFNXOption
+@interface FNXNone : FNXOption
 
 // Returns the singleton instance of ADFNXNone.
-+ (ADFNXNone *)none;
++ (FNXNone *)none;
 
 @end

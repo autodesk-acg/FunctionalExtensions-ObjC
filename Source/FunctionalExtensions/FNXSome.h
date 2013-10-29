@@ -14,12 +14,12 @@
  * (Rights  in Technical Data and Computer Software),  as applicable.
  *******************************************************************/
 
-#import "ADFNXOption.h"
+#import "FNXOption.h"
 
 
-@interface ADFNXSome : ADFNXOption
+@interface FNXSome : FNXOption
 
 // Allocates and initializes an instance of ADFNXSome with value.
-+ (ADFNXSome *)someWithValue:(id)value;
++ (FNXSome *)someWithValue:(id)value;
 
 @end

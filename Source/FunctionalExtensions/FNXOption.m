@@ -14,13 +14,13 @@
  * (Rights  in Technical Data and Computer Software),  as applicable.
  *******************************************************************/
 
-#import "ADFNXOption.h"
-#import "ADFNXSome.h"
-#import "ADFNXNone.h"
+#import "FNXOption.h"
+#import "FNXSome.h"
+#import "FNXNone.h"
 #import "NSArray+ADFNXFunctionalExtensions.h"
 
 
-@implementation ADFNXOption
+@implementation FNXOption
 
 // Counts the number of elements in the collection which satisfy a predicate.
 - (NSUInteger)count:(BOOL (^)(id obj))pred
@@ -33,7 +33,7 @@
 }
 
 // Selects all elements except first n ones.
-- (id<ADFNXTraversable>)drop:(NSUInteger)n
+- (id<FNXTraversable>)drop:(NSUInteger)n
 {
     if (self.nonEmpty && 0 == n) {
         return [NSArray arrayWithObject:self.get];
@@ -50,28 +50,28 @@
 
 // Returns this ADFNXOption if it is nonempty and applying the predicate pred to
 // this ADFNXOption's value returns YES. Otherwise, return ADFNXNone.
-- (ADFNXOption *)filter:(BOOL (^)(id obj))pred
+- (FNXOption *)filter:(BOOL (^)(id obj))pred
 {
-    return (self.nonEmpty && pred(self.get)) ? self : [ADFNXNone none];
+    return (self.nonEmpty && pred(self.get)) ? self : [FNXNone none];
 }
 
 // Returns this ADFNXOption if it is nonempty and applying the predicate pred
 // to this option's value returns NO.
-- (ADFNXOption *)filterNot:(BOOL (^)(id obj))pred
+- (FNXOption *)filterNot:(BOOL (^)(id obj))pred
 {
-    return (self.nonEmpty && !pred(self.get)) ? self : [ADFNXNone none];
+    return (self.nonEmpty && !pred(self.get)) ? self : [FNXNone none];
 }
 
 // Finds the first element of the collection satisfying a predicate, if any.
-- (ADFNXOption *)find:(BOOL (^)(id obj))pred
+- (FNXOption *)find:(BOOL (^)(id obj))pred
 {
-    return (self.nonEmpty && pred(self.get)) ? self : [ADFNXNone none];
+    return (self.nonEmpty && pred(self.get)) ? self : [FNXNone none];
 }
 
 // Returns the result of applying fn to this ADFNXOption's value if this ADFNXOption is nonempty.
-- (ADFNXOption *)flatMap:(ADFNXOption *(^)(id obj))fn
+- (FNXOption *)flatMap:(FNXOption *(^)(id obj))fn
 {
-    return self.nonEmpty ? fn(self.get) : [ADFNXNone none];
+    return self.nonEmpty ? fn(self.get) : [FNXNone none];
 }
 
 // Applies a binary operator to a start value and all elements of this collection, going left to right.
@@ -126,7 +126,7 @@
 }
 
 // Optionally selects the first element of this collection.
-- (ADFNXOption *)headOption
+- (FNXOption *)headOption
 {
     return self;
 }
@@ -140,14 +140,14 @@
 }
 
 // Optionally selects the last element.
-- (ADFNXOption *)lastOption
+- (FNXOption *)lastOption
 {
     return self;
 }
 
 // Selects all elements except the last.
 // Abstract
-- (id<ADFNXTraversable>)initial
+- (id<FNXTraversable>)initial
 {
     NSAssert(NO, @"Abstract method called");
     return nil;
@@ -170,9 +170,9 @@
 }
 
 // Returns a ADFNXSome containing the result of applying fn to this option's value if this option is nonempty.
-- (ADFNXOption *)map:(id (^)(id obj))fn
+- (FNXOption *)map:(id (^)(id obj))fn
 {
-    return self.nonEmpty ? [ADFNXSome someWithValue:fn(self.get)] : [ADFNXNone none];
+    return self.nonEmpty ? [FNXSome someWithValue:fn(self.get)] : [FNXNone none];
 }
 
 // Returns NO if the option is ADNFXNone, YES otherwise.
@@ -184,14 +184,14 @@
 }
 
 // Returns this ADFNXOption if it is nonempty, otherwise return the result of evaluating alternative.
-- (ADFNXOption *)orElse:(ADFNXOption *(^)(void))alternative
+- (FNXOption *)orElse:(FNXOption *(^)(void))alternative
 {
     return self.nonEmpty ? self : alternative();
 }
 
 // Selects all elements except the first.
 // Abstract
-- (id<ADFNXTraversable>)tail
+- (id<FNXTraversable>)tail
 {
     NSAssert(NO, @"Abstract method called");
     return nil;
@@ -200,7 +200,7 @@
 @end
 
 
-@implementation ADFNXOption (ADFNXTraversable)
+@implementation FNXOption (ADFNXTraversable)
 
 // Counts the number of elements in the collection which satisfy a predicate.
 - (NSUInteger)fnx_count:(BOOL (^)(id obj))pred
@@ -209,7 +209,7 @@
 }
 
 // Selects all elements except first n ones.
-- (id<ADFNXTraversable>)fnx_drop:(NSUInteger)n
+- (id<FNXTraversable>)fnx_drop:(NSUInteger)n
 {
     return [self drop:n];
 }
@@ -221,19 +221,19 @@
 }
 
 // Selects all elements of this collection which satisfy a predicate.
-- (id<ADFNXTraversable>)fnx_filter:(BOOL (^)(id obj))pred
+- (id<FNXTraversable>)fnx_filter:(BOOL (^)(id obj))pred
 {
     return [self filter:pred];
 }
 
 // Selects all elements of this collection which do not satisfy a predicate.
-- (id<ADFNXTraversable>)fnx_filterNot:(BOOL (^)(id obj))pred
+- (id<FNXTraversable>)fnx_filterNot:(BOOL (^)(id obj))pred
 {
     return [self filterNot:pred];
 }
 
 // Finds the first element of the collection satisfying a predicate, if any.
-- (ADFNXOption *)fnx_find:(BOOL (^)(id obj))pred
+- (FNXOption *)fnx_find:(BOOL (^)(id obj))pred
 {
     return [self find:pred];
 }
@@ -271,7 +271,7 @@
 }
 
 // Optionally selects the first element of this collection.
-- (ADFNXOption *)fnx_headOption
+- (FNXOption *)fnx_headOption
 {
     return [self headOption];
 }
@@ -283,13 +283,13 @@
 }
 
 // Optionally selects the last element.
-- (ADFNXOption *)fnx_lastOption
+- (FNXOption *)fnx_lastOption
 {
     return [self lastOption];
 }
 
 // Selects all elements except the last.
-- (id<ADFNXTraversable>)fnx_init
+- (id<FNXTraversable>)fnx_init
 {
     return [self initial];
 }
@@ -319,7 +319,7 @@
 }
 
 // Selects all elements except the first.
-- (id<ADFNXTraversable>)fnx_tail
+- (id<FNXTraversable>)fnx_tail
 {
     return [self tail];
 }

@@ -14,18 +14,18 @@
  * (Rights  in Technical Data and Computer Software),  as applicable.
  *******************************************************************/
 
-#import "ADFNXSome.h"
+#import "FNXSome.h"
 #import "NSArray+ADFNXFunctionalExtensions.h"
 
 
-@interface ADFNXSome ()
+@interface FNXSome ()
 
 @property (nonatomic, strong) id value;
 
 @end
 
 
-@implementation ADFNXSome
+@implementation FNXSome
 
 - (instancetype)initWithValue:(id)value
 {
@@ -38,9 +38,9 @@
     return self;
 }
 
-+ (ADFNXSome *)someWithValue:(id)value
++ (FNXSome *)someWithValue:(id)value
 {
-    return [[ADFNXSome alloc] initWithValue:value];
+    return [[FNXSome alloc] initWithValue:value];
 }
 
 // Returns the option's value.
@@ -52,7 +52,7 @@
 
 // Selects all elements except the last.
 // Abstract
-- (id<ADFNXTraversable>)initial
+- (id<FNXTraversable>)initial
 {
     return [NSArray array];
 }
@@ -92,7 +92,7 @@
 
 // Selects all elements except the first.
 // Abstract
-- (id<ADFNXTraversable>)tail
+- (id<FNXTraversable>)tail
 {
     return [NSArray array];
 }

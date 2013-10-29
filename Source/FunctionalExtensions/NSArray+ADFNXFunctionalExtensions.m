@@ -15,11 +15,11 @@
  *******************************************************************/
 
 #import "NSArray+ADFNXFunctionalExtensions.h"
-#import "ADFNXSome.h"
-#import "ADFNXNone.h"
+#import "FNXSome.h"
+#import "FNXNone.h"
 
 
-@implementation NSArray (ADFNXFunctionalExtensions)
+@implementation NSArray (FNXFunctionalExtensions)
 
 // Builds a new array from this collection without any duplicate elements.
 - (NSArray *)fnx_distinct
@@ -91,7 +91,7 @@
 }
 
 // Selects all elements except first n ones.
-- (id<ADFNXTraversable>)fnx_drop:(NSUInteger)n
+- (id<FNXTraversable>)fnx_drop:(NSUInteger)n
 {
     if (n >= self.count) {
         return [NSArray array];
@@ -114,7 +114,7 @@
 }
 
 // Selects all elements of this collection which satisfy a predicate.
-- (id<ADFNXTraversable>)fnx_filter:(BOOL (^)(id obj))pred
+- (id<FNXTraversable>)fnx_filter:(BOOL (^)(id obj))pred
 {
     NSIndexSet *indexSet = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return pred(obj);
@@ -123,7 +123,7 @@
 }
 
 // Selects all elements of this collection which do not satisfy a predicate.
-- (id<ADFNXTraversable>)fnx_filterNot:(BOOL (^)(id obj))pred
+- (id<FNXTraversable>)fnx_filterNot:(BOOL (^)(id obj))pred
 {
     NSIndexSet *indexSet = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return !pred(obj);
@@ -132,14 +132,14 @@
 }
 
 // Finds the first element of the collection satisfying a predicate, if any.
-- (ADFNXOption *)fnx_find:(BOOL (^)(id obj))pred
+- (FNXOption *)fnx_find:(BOOL (^)(id obj))pred
 {
     for (id obj in self) {
         if (pred(obj)) {
-            return [ADFNXSome someWithValue:obj];
+            return [FNXSome someWithValue:obj];
         }
     }
-    return [ADFNXNone none];
+    return [FNXNone none];
 }
 
 // Applies a binary operator to a start value and all elements of this collection, going left to right.
@@ -191,9 +191,9 @@
 }
 
 // Optionally selects the first element of this collection.
-- (ADFNXOption *)fnx_headOption
+- (FNXOption *)fnx_headOption
 {
-    return self.count > 0 ? [ADFNXSome someWithValue:self[0]] : [ADFNXNone none];
+    return self.count > 0 ? [FNXSome someWithValue:self[0]] : [FNXNone none];
 }
 
 // Selects the last element.
@@ -204,13 +204,13 @@
 }
 
 // Optionally selects the last element.
-- (ADFNXOption *)fnx_lastOption
+- (FNXOption *)fnx_lastOption
 {
-    return self.count > 0 ? [ADFNXSome someWithValue:self.fnx_last] : [ADFNXNone none];
+    return self.count > 0 ? [FNXSome someWithValue:self.fnx_last] : [FNXNone none];
 }
 
 // Selects all elements except the last.
-- (id<ADFNXTraversable>)fnx_init
+- (id<FNXTraversable>)fnx_init
 {
     // This should throw an exception if the collection is empty.
     NSRange range = NSMakeRange(0, self.count - 1);
@@ -249,7 +249,7 @@
 }
 
 // Selects all elements except the first.
-- (id<ADFNXTraversable>)fnx_tail
+- (id<FNXTraversable>)fnx_tail
 {
     // This should throw an exception if the list is empty.
     NSRange range = NSMakeRange(1, self.count - 1);
