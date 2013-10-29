@@ -17,6 +17,7 @@
 #import "ADFNXOption.h"
 #import "ADFNXSome.h"
 #import "ADFNXNone.h"
+#import "NSArray+ADFNXFunctionalExtensions.h"
 
 
 @implementation ADFNXOption
@@ -28,6 +29,16 @@
         return 0;
     } else {
         return pred(self.get) ? 1 : 0;
+    }
+}
+
+// Selects all elements except first n ones.
+- (id<ADFNXTraversable>)drop:(NSUInteger)n
+{
+    if (self.nonEmpty && 0 == n) {
+        return [NSArray arrayWithObject:self.get];
+    } else {
+        return [NSArray array];
     }
 }
 
@@ -197,6 +208,12 @@
     return [self count:pred];
 }
 
+// Selects all elements except first n ones.
+- (id<ADFNXTraversable>)fnx_drop:(NSUInteger)n
+{
+    return [self drop:n];
+}
+
 // Tests whether a predicate holds for some of the elements of this traversable.
 - (BOOL)fnx_exists:(BOOL (^)(id obj))pred
 {
@@ -293,6 +310,12 @@
 - (BOOL)fnx_nonEmpty
 {
     return self.nonEmpty;
+}
+
+// The size of this collection.
+- (NSUInteger)fnx_size
+{
+    return self.nonEmpty ? 1 : 0;
 }
 
 // Selects all elements except the first.

@@ -27,18 +27,6 @@
     return [self valueForKeyPath:@"@distinctUnionOfObjects.self"];
 }
 
-// Selects all elements except first n ones.
-- (NSArray *)fnx_drop:(NSUInteger)n
-{
-    if (n >= self.count) {
-        return [NSArray array];
-    } else {
-        NSRange range = NSMakeRange(n + 1, self.count - n);
-        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
-        return [self objectsAtIndexes:indexSet];
-    }
-}
-
 // Builds a new collection by applying a function to all elements of this collection
 // and using the elements of the resulting collections.
 - (NSArray *)fnx_flatMap:(id (^)(id obj))fn
@@ -57,6 +45,26 @@
                            usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                fn(obj);
                            }];
+}
+
+// Builds a new collection by applying a function to all elements of this array in _parallel_.
+// If fn could return nil, it must return [FNXNone none] instead and the other values
+// should be mapped as FNXSome values.
+- (NSArray *)adfnx_mapParallel:(id (^)(id obj))fn
+{
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
+    for (NSUInteger i = 0; i < self.count; ++i) {
+        [result addObject:NSNull.null];
+    }
+    
+    // Because the block may be called concurrently, we have to insert the result of the map directly,
+    // rather than using [addObject:].
+    [self enumerateObjectsWithOptions:NSEnumerationConcurrent
+                           usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                               result[idx] = fn(obj);
+                           }];
+    
+    return [result copy];
 }
 
 // Returns a new collection with the elements of this collection in reversed order.
@@ -80,6 +88,18 @@
         }
     }
     return result;
+}
+
+// Selects all elements except first n ones.
+- (id<ADFNXTraversable>)fnx_drop:(NSUInteger)n
+{
+    if (n >= self.count) {
+        return [NSArray array];
+    } else {
+        NSRange range = NSMakeRange(n + 1, self.count - n);
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+        return [self objectsAtIndexes:indexSet];
+    }
 }
 
 // Tests whether a predicate holds for some of the elements of this traversable.
@@ -216,30 +236,16 @@
     return [result copy];
 }
 
-// Builds a new collection by applying a function to all elements of this array in _parallel_.
-// If fn could return nil, it must return [FNXNone none] instead and the other values
-// should be mapped as FNXSome values.
-- (NSArray *)adfnx_mapParallel:(id (^)(id obj))fn
-{
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
-    for (NSUInteger i = 0; i < self.count; ++i) {
-        [result addObject:NSNull.null];
-    }
-    
-    // Because the block may be called concurrently, we have to insert the result of the map directly,
-    // rather than using [addObject:].
-    [self enumerateObjectsWithOptions:NSEnumerationConcurrent
-                           usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                               result[idx] = fn(obj);
-                           }];
-    
-    return [result copy];
-}
-
 // Tests whether the mutable indexed sequence is not empty.
 - (BOOL)fnx_nonEmpty
 {
     return self.count > 0;
+}
+
+// The size of this collection.
+- (NSUInteger)fnx_size
+{
+    return self.count;
 }
 
 // Selects all elements except the first.

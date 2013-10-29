@@ -24,6 +24,9 @@
 // Counts the number of elements in the collection which satisfy a predicate.
 - (NSUInteger)fnx_count:(BOOL (^)(id obj))pred;
 
+// Selects all elements except first n ones.
+- (id<ADFNXTraversable>)fnx_drop:(NSUInteger)n;
+
 // Tests whether a predicate holds for some of the elements of this traversable.
 - (BOOL)fnx_exists:(BOOL (^)(id obj))pred;
 
@@ -75,6 +78,9 @@
 
 // Tests whether the collection is not empty.
 - (BOOL)fnx_nonEmpty;
+
+// The size of this collection.
+- (NSUInteger)fnx_size;
 
 // Selects all elements except the first.
 - (id<ADFNXTraversable>)fnx_tail;
