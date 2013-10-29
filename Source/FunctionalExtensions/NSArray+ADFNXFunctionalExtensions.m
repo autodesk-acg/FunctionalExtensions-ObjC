@@ -59,32 +59,6 @@
                            }];
 }
 
-// Selects the first element of this collection.
-- (id)fnx_head
-{
-    // We want this to throw an exception if out of bounds.
-    return self[0];
-}
-
-// Optionally selects the first element of this collection.
-- (ADFNXOption *)fnx_headOption
-{
-    return self.count > 0 ? [ADFNXSome someWithValue:self[0]] : [ADFNXNone none];
-}
-
-// Selects the last element.
-- (id)fnx_last
-{
-    // This should throw an exception if the collection is empty.
-    return self[self.count - 1];
-}
-
-// Optionally selects the last element.
-- (ADFNXOption *)fnx_lastOption
-{
-    return self.count > 0 ? [ADFNXSome someWithValue:self.fnx_last] : [ADFNXNone none];
-}
-
 // Returns a new collection with the elements of this collection in reversed order.
 - (NSArray *)fnx_reverse
 {
@@ -187,6 +161,32 @@
     for (id obj in self) {
         fn(obj);
     }
+}
+
+// Selects the first element of this collection.
+- (id)fnx_head
+{
+    // We want this to throw an exception if out of bounds.
+    return self[0];
+}
+
+// Optionally selects the first element of this collection.
+- (ADFNXOption *)fnx_headOption
+{
+    return self.count > 0 ? [ADFNXSome someWithValue:self[0]] : [ADFNXNone none];
+}
+
+// Selects the last element.
+- (id)fnx_last
+{
+    // This should throw an exception if the collection is empty.
+    return self[self.count - 1];
+}
+
+// Optionally selects the last element.
+- (ADFNXOption *)fnx_lastOption
+{
+    return self.count > 0 ? [ADFNXSome someWithValue:self.fnx_last] : [ADFNXNone none];
 }
 
 // Selects all elements except the last.

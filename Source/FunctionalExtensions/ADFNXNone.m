@@ -38,6 +38,14 @@
                                     userInfo:nil];
 }
 
+// Selects the first element of this collection.
+- (id)head
+{
+    @throw [[NSException alloc] initWithName:@"ADFNXNoSuchElement"
+                                      reason:NSLocalizedString(@"Head of empty list", @"Message when [ADFNXNone head] is called")
+                                    userInfo:nil];
+}
+
 // Selects all elements except the last.
 // Abstract
 - (id<ADFNXTraversable>)initial
@@ -59,6 +67,14 @@
 - (BOOL)isEmpty
 {
     return YES;
+}
+
+// Selects the last element.
+- (id)last
+{
+    @throw [[NSException alloc] initWithName:@"ADFNXNoSuchElement"
+                                      reason:NSLocalizedString(@"Last of empty list", @"Message when [ADFNXNone last] is called")
+                                    userInfo:nil];
 }
 
 // Returns NO if the option is ADNFXNone, YES otherwise.

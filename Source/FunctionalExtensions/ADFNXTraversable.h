@@ -52,11 +52,23 @@
 // Apply the given procedure fn to every element in the collection.
 - (void)fnx_foreach:(void (^)(id obj))fn;
 
+// Selects the first element of this collection.
+- (id)fnx_head;
+
+// Optionally selects the first element of this collection.
+- (ADFNXOption *)fnx_headOption;
+
 // Selects all elements except the last.
 - (id<ADFNXTraversable>)fnx_init;
 
 // Tests whether this collection is empty.
 - (BOOL)fnx_isEmpty;
+
+// Selects the last element.
+- (id)fnx_last;
+
+// Optionally selects the last element.
+- (ADFNXOption *)fnx_lastOption;
 
 // Builds a new collection by applying a function to all elements of this collection.
 - (id)fnx_map:(id (^)(id obj))fn;

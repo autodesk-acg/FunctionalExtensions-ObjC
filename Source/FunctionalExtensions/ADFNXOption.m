@@ -106,6 +106,34 @@
     return self.nonEmpty ? self.get : defaultValue;
 }
 
+// Selects the first element of this collection.
+// Abstract
+- (id)head
+{
+    NSAssert(NO, @"Abstract method called");
+    return nil;
+}
+
+// Optionally selects the first element of this collection.
+- (ADFNXOption *)headOption
+{
+    return self;
+}
+
+// Selects the last element.
+// Abstract
+- (id)last
+{
+    NSAssert(NO, @"Abstract method called");
+    return nil;
+}
+
+// Optionally selects the last element.
+- (ADFNXOption *)lastOption
+{
+    return self;
+}
+
 // Selects all elements except the last.
 // Abstract
 - (id<ADFNXTraversable>)initial
@@ -217,6 +245,30 @@
 - (void)fnx_foreach:(void (^)(id obj))fn
 {
     [self foreach:fn];
+}
+
+// Selects the first element of this collection.
+- (id)fnx_head
+{
+    return [self head];
+}
+
+// Optionally selects the first element of this collection.
+- (ADFNXOption *)fnx_headOption
+{
+    return [self headOption];
+}
+
+// Selects the last element.
+- (id)fnx_last
+{
+    return [self last];
+}
+
+// Optionally selects the last element.
+- (ADFNXOption *)fnx_lastOption
+{
+    return [self lastOption];
 }
 
 // Selects all elements except the last.

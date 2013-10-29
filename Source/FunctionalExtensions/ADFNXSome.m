@@ -57,6 +57,12 @@
     return [NSArray array];
 }
 
+// Selects the first element of this collection.
+- (id)head
+{
+    return self.get;
+}
+
 // Returns YES if the option is an instance of ADFNXSome, NO otherwise.
 // Abstract
 - (BOOL)isDefined
@@ -69,6 +75,12 @@
 - (BOOL)isEmpty
 {
     return NO;
+}
+
+// Selects the last element.
+- (id)last
+{
+    return self.get;
 }
 
 // Returns NO if the option is ADNFXNone, YES otherwise.
