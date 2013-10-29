@@ -15,6 +15,7 @@
  *******************************************************************/
 
 #import "ADFNXSome.h"
+#import "NSArray+ADFNXFunctionalExtensions.h"
 
 
 @interface ADFNXSome ()
@@ -49,6 +50,13 @@
     return _value;
 }
 
+// Selects all elements except the last.
+// Abstract
+- (id<ADFNXTraversable>)initial
+{
+    return [NSArray array];
+}
+
 // Returns YES if the option is an instance of ADFNXSome, NO otherwise.
 // Abstract
 - (BOOL)isDefined
@@ -68,6 +76,13 @@
 - (BOOL)nonEmpty
 {
     return YES;
+}
+
+// Selects all elements except the first.
+// Abstract
+- (id<ADFNXTraversable>)tail
+{
+    return [NSArray array];
 }
 
 @end

@@ -36,7 +36,15 @@
     @throw [[NSException alloc] initWithName:@"ADFNXNoSuchElement"
                                       reason:NSLocalizedString(@"No such element", @"Message when [ADFNXNone get] is called")
                                     userInfo:nil];
-    return nil;
+}
+
+// Selects all elements except the last.
+// Abstract
+- (id<ADFNXTraversable>)initial
+{
+    @throw [[NSException alloc] initWithName:@"ADFNXUnsupportedOperation"
+                                      reason:NSLocalizedString(@"Empty initial", @"Message when [ADFNXNone initial] is called")
+                                    userInfo:nil];
 }
 
 // Returns YES if the option is an instance of ADFNXSome, NO otherwise.
@@ -58,6 +66,15 @@
 - (BOOL)nonEmpty
 {
     return NO;
+}
+
+// Selects all elements except the first.
+// Abstract
+- (id<ADFNXTraversable>)tail
+{
+    @throw [[NSException alloc] initWithName:@"ADFNXUnsupportedOperation"
+                                      reason:NSLocalizedString(@"Tail of empty list", @"Message when [ADFNXNone tail] is called")
+                                    userInfo:nil];
 }
 
 @end
