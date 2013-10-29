@@ -15,7 +15,7 @@
  *******************************************************************/
 
 #import "FNXSome.h"
-#import "NSArray+ADFNXFunctionalExtensions.h"
+#import "NSArray+FNXFunctionalExtensions.h"
 
 
 @interface FNXSome ()

@@ -14,7 +14,7 @@
  * (Rights  in Technical Data and Computer Software),  as applicable.
  *******************************************************************/
 
-#import "NSArray+ADFNXFunctionalExtensions.h"
+#import "NSArray+FNXFunctionalExtensions.h"
 #import "FNXSome.h"
 #import "FNXNone.h"
 
@@ -24,7 +24,8 @@
 // Builds a new array from this collection without any duplicate elements.
 - (NSArray *)fnx_distinct
 {
-    return [self valueForKeyPath:@"@distinctUnionOfObjects.self"];
+    // [self valueForKeyPath:@"@distinctUnionOfObjects.self"] doesn't preserve order.
+    return [NSOrderedSet orderedSetWithArray:self].array;
 }
 
 // Builds a new collection by applying a function to all elements of this collection
@@ -96,7 +97,7 @@
     if (n >= self.count) {
         return [NSArray array];
     } else {
-        NSRange range = NSMakeRange(n + 1, self.count - n);
+        NSRange range = NSMakeRange(n, self.count - n);
         NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
         return [self objectsAtIndexes:indexSet];
     }

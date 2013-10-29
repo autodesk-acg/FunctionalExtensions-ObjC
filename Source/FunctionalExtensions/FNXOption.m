@@ -17,7 +17,7 @@
 #import "FNXOption.h"
 #import "FNXSome.h"
 #import "FNXNone.h"
-#import "NSArray+ADFNXFunctionalExtensions.h"
+#import "NSArray+FNXFunctionalExtensions.h"
 
 
 @implementation FNXOption

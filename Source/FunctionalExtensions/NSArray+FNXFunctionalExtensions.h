@@ -20,6 +20,25 @@
 
 // Scala-style functional extensions for NSArray.
 @interface NSArray (FNXFunctionalExtensions)
+
+// Builds a new array from this collection without any duplicate elements.
+- (NSArray *)fnx_distinct;
+
+// Builds a new collection by applying a function to all elements of this collection
+// and using the elements of the resulting collections.
+- (NSArray *)fnx_flatMap:(id (^)(id obj))fn;
+
+// Applies a function fn to all elements of this collection in _parallel_.
+- (void)fnx_foreachParallel:(void (^)(id obj))fn;
+
+// Builds a new collection by applying a function to all elements of this array in _parallel_.
+// If fn could return nil, it must return [FNXNone none] instead and the other values
+// should be mapped as FNXSome values.
+- (NSArray *)adfnx_mapParallel:(id (^)(id obj))fn;
+
+// Returns a new collection with the elements of this collection in reversed order.
+- (NSArray *)fnx_reverse;
+
 @end
 
 
