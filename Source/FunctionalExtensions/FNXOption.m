@@ -301,7 +301,7 @@
 }
 
 // Builds a new collection by applying a function to all elements of this collection.
-- (id)fnx_map:(id (^)(id obj))fn
+- (id<FNXTraversable>)fnx_map:(id (^)(id obj))fn
 {
     return [self map:fn];
 }

@@ -228,7 +228,7 @@
 // Builds a new collection by applying a function to all elements of this collection.
 // If fn could return nil, it must return [FNXNone none] instead and the other values
 // should be mapped as FNXSome values.
-- (NSArray *)fnx_map:(id (^)(id obj))fn
+- (id<FNXTraversable>)fnx_map:(id (^)(id obj))fn
 {
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
     for (id obj in self) {

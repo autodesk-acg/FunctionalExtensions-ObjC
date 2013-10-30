@@ -74,7 +74,7 @@
 - (FNXOption *)fnx_lastOption;
 
 // Builds a new collection by applying a function to all elements of this collection.
-- (id)fnx_map:(id (^)(id obj))fn;
+- (id<FNXTraversable>)fnx_map:(id (^)(id obj))fn;
 
 // Tests whether the collection is not empty.
 - (BOOL)fnx_nonEmpty;

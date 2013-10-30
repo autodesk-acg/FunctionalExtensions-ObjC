@@ -360,6 +360,29 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             
         });
         
+        context(@"Should be able to select all the elements except the last one", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"With one element", ^{
+                    NSArray *input = @[@(20)];
+                    [[theValue(input.fnx_init.fnx_isEmpty) should] beTrue];
+                });
+                
+                it(@"With several elements", ^{
+                    NSArray *input = @[@(10), @(20), @(30)];
+                    [[((id)input.fnx_init) should] equal:@[@(10), @(20)]];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                [[theBlock(^{
+                    [input fnx_init];
+                }) should] raise];
+            });
+            
+        });
+        
         context(@"Should be able to indicate whether it's empty", ^{
             
             context(@"For a nonempty collection", ^{
@@ -430,6 +453,32 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             
         });
         
+        context(@"Should be able to build a new collection by applying a function to all elements", ^{
+            context(@"For a nonempty collection", ^{
+                it(@"With one element", ^{
+                    NSArray *input = @[@(20)];
+                    id<FNXTraversable> result = [input fnx_map:^id(NSNumber *obj) {
+                        return @(2 * obj.intValue);
+                    }];
+                    [[((id)result) should] equal:@[@(2*20)]];
+                });
+                it(@"With several elements", ^{
+                    NSArray *input = @[@(10), @(20), @(30)];
+                    id<FNXTraversable> result = [input fnx_map:^id(NSNumber *obj) {
+                        return @(2 * obj.intValue);
+                    }];
+                    [[((id)result) should] equal:@[@(2*10), @(2*20), @(2*30)]];
+                });
+            });
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                id<FNXTraversable> result = [input fnx_map:^id(NSNumber *obj) {
+                    return @(2 * obj.intValue);
+                }];
+                [[theValue(result.fnx_isEmpty) should] beTrue];
+            });
+        });
+        
         context(@"Should be able to indicate whether it's non-empty", ^{
             
             context(@"For a nonempty collection", ^{
@@ -463,6 +512,25 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
                 [[theValue(input.fnx_size) should] equal:@(0)];
             });
             
+        });
+        
+        context(@"Should be able to select all the elements except the first one", ^{
+            context(@"For a nonempty collection", ^{
+                it(@"With one element", ^{
+                    NSArray *input = @[@(20)];
+                    [[theValue(input.fnx_tail.fnx_isEmpty) should] beTrue];
+                });
+                it(@"With several elements", ^{
+                    NSArray *input = @[@(10), @(20), @(30)];
+                    [[((id)input.fnx_tail) should] equal:@[@(20), @(30)]];
+                });
+            });
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                [[theBlock(^{
+                    [input fnx_tail];
+                }) should] raise];
+            });
         });
         
     });
