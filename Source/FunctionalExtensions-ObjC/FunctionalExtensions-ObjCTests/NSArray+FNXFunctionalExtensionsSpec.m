@@ -14,16 +14,7 @@ SPEC_BEGIN(NSArray_FNXFunctionalExtensionsSpec)
 
 describe(@"NSArray+FNXFunctionalExtensions", ^{
     
-    context(@"Functional extensions for NSArray", ^{
-        
-        beforeAll(^{ // Occurs once
-        });
-        
-        afterAll(^{ // Occurs once
-        });
-        
-        afterEach(^{ // Occurs after each enclosed "it"
-        });
+    context(@"NSArray", ^{
         
         context(@"Should be able to return distinct values from an array with duplicate values, preserving order", ^{
             
@@ -56,6 +47,9 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             });
             
         });
+    });
+
+    context(@"<FNXTraversable>", ^{
         
         context(@"Should be able to return the count of items fulfilling a predicate", ^{
             
@@ -98,14 +92,14 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
                     NSArray *input = @[@(10), @(20), @(30), @(20)];
                     [[theValue([input fnx_exists:^BOOL(NSNumber *n) {
                         return n.intValue > 10;
-                    }]) should] equal:@(YES)];
+                    }]) should] beTrue];
                 });
 
                 it(@"Where an item doesn't satisfy the predicate", ^{
                     NSArray *input = @[@(10), @(20), @(30), @(20)];
                     [[theValue([input fnx_exists:^BOOL(NSNumber *n) {
                         return n.intValue > 200;
-                    }]) should] equal:@(NO)];
+                    }]) should] beFalse];
                 });
             });
 
@@ -113,7 +107,7 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
                 NSArray *input = @[];
                 [[theValue([input fnx_exists:^BOOL(NSNumber *n) {
                     return n.intValue > 10;
-                }]) should] equal:@(NO)];
+                }]) should] beFalse];
             });
             
         });
@@ -261,6 +255,212 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
                                                                 return @(obj.intValue / accumulator.intValue);
                                                             }];
                 [[result should] equal:@(5)];
+            });
+            
+        });
+        
+        context(@"Should be able to test whether or not a predicate holds for all elements", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"Where the predicate holds", ^{
+                    NSArray *input = @[@(100), @(20)];
+                    BOOL result = [input fnx_forall:^BOOL(NSNumber *obj) {
+                        return obj.intValue % 2 == 0;
+                    }];
+                    [[theValue(result) should] beTrue];
+                });
+                
+                it(@"Where the predicate doesn't hold", ^{
+                    NSArray *input = @[@(100), @(20)];
+                    BOOL result = [input fnx_forall:^BOOL(NSNumber *obj) {
+                        return obj.intValue % 2 == 1;
+                    }];
+                    [[theValue(result) should] beFalse];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                BOOL result = [input fnx_forall:^BOOL(NSNumber *obj) {
+                    return obj.intValue % 2 == 1;
+                }];
+                [[theValue(result) should] beTrue];
+            });
+            
+        });
+        
+        context(@"Should be able to apply a function to each element", ^{
+            
+            it(@"For a nonempty collection", ^{
+                __block NSInteger total = 1;
+                NSArray *input = @[@(100), @(20), @(30)];
+                [input fnx_foreach:^(NSNumber *obj) {
+                    total += obj.intValue;
+                }];
+                [[theValue(total) should] equal:@(1 + 100 + 20 + 30)];
+            });
+            
+            it(@"For an empty collection", ^{
+                __block NSInteger total = 1;
+                NSArray *input = @[];
+                [input fnx_foreach:^(NSNumber *obj) {
+                    total += obj.intValue;
+                }];
+                [[theValue(total) should] equal:@(1)];
+            });
+            
+        });
+        
+        context(@"Should be able to return the first element", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"With one element", ^{
+                    NSArray *input = @[@(20)];
+                    [[input.fnx_head should] equal:@(20)];
+                });
+                
+                it(@"With several elements", ^{
+                    NSArray *input = @[@(100), @(20)];
+                    [[input.fnx_head should] equal:@(100)];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                [[theBlock(^{
+                    [input fnx_head];
+                }) should] raise];
+            });
+            
+        });
+        
+        context(@"Should be able to optionally return the first element", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"With one element", ^{
+                    NSArray *input = @[@(20)];
+                    FNXOption *result = input.fnx_headOption;
+                    [[theValue(result.nonEmpty) should] beTrue];
+                    [[result.get should] equal:@(20)];
+                });
+                
+                it(@"With several elements", ^{
+                    NSArray *input = @[@(100), @(20)];
+                    FNXOption *result = input.fnx_headOption;
+                    [[theValue(result.nonEmpty) should] beTrue];
+                    [[result.get should] equal:@(100)];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                FNXOption *result = input.fnx_headOption;
+                [[theValue(result.isEmpty) should] beTrue];
+            });
+            
+        });
+        
+        context(@"Should be able to indicate whether it's empty", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"With one element", ^{
+                    NSArray *input = @[@(20)];
+                    [[theValue(input.fnx_isEmpty) should] beFalse];
+                });
+                
+                it(@"With several elements", ^{
+                    NSArray *input = @[@(100), @(20)];
+                    [[theValue(input.fnx_isEmpty) should] beFalse];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                [[theValue(input.fnx_isEmpty) should] beTrue];
+            });
+            
+        });
+        
+        context(@"Should be able to return the last element", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"With one element", ^{
+                    NSArray *input = @[@(20)];
+                    [[input.fnx_last should] equal:@(20)];
+                });
+                
+                it(@"With several elements", ^{
+                    NSArray *input = @[@(100), @(20), @(30)];
+                    [[input.fnx_last should] equal:@(30)];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                [[theBlock(^{
+                    [input fnx_last];
+                }) should] raise];
+            });
+            
+        });
+        
+        context(@"Should be able to optionally return the last element", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"With one element", ^{
+                    NSArray *input = @[@(20)];
+                    FNXOption *result = input.fnx_lastOption;
+                    [[theValue(result.nonEmpty) should] beTrue];
+                    [[result.get should] equal:@(20)];
+                });
+                
+                it(@"With several elements", ^{
+                    NSArray *input = @[@(100), @(20), @(30)];
+                    FNXOption *result = input.fnx_lastOption;
+                    [[theValue(result.nonEmpty) should] beTrue];
+                    [[result.get should] equal:@(30)];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                FNXOption *result = input.fnx_lastOption;
+                [[theValue(result.isEmpty) should] beTrue];
+            });
+            
+        });
+        
+        context(@"Should be able to indicate whether it's non-empty", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"With one element", ^{
+                    NSArray *input = @[@(20)];
+                    [[theValue(input.fnx_nonEmpty) should] beTrue];
+                });
+                
+                it(@"With several elements", ^{
+                    NSArray *input = @[@(100), @(20)];
+                    [[theValue(input.fnx_nonEmpty) should] beTrue];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                [[theValue(input.fnx_nonEmpty) should] beFalse];
+            });
+            
+        });
+        
+        context(@"Should be able to provide its size", ^{
+            
+            it(@"For a nonempty collection", ^{
+                NSArray *input = @[@(100), @(20)];
+                [[theValue(input.fnx_size) should] equal:@(2)];
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                [[theValue(input.fnx_size) should] equal:@(0)];
             });
             
         });
