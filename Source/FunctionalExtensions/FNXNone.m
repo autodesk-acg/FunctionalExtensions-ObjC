@@ -93,4 +93,10 @@
                                     userInfo:nil];
 }
 
+// Converts this traversable to an array.
+- (NSArray *)toArray
+{
+    return [NSArray array];
+}
+
 @end

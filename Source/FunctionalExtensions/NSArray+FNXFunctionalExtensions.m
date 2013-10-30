@@ -115,7 +115,7 @@
 }
 
 // Selects all elements of this collection which satisfy a predicate.
-- (id<FNXTraversable>)fnx_filter:(BOOL (^)(id obj))pred
+- (id<FNXTraversableOnce>)fnx_filter:(BOOL (^)(id obj))pred
 {
     NSIndexSet *indexSet = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return pred(obj);
@@ -228,7 +228,7 @@
 // Builds a new collection by applying a function to all elements of this collection.
 // If fn could return nil, it must return [FNXNone none] instead and the other values
 // should be mapped as FNXSome values.
-- (id<FNXTraversable>)fnx_map:(id (^)(id obj))fn
+- (id<FNXTraversableOnce>)fnx_map:(id (^)(id obj))fn
 {
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
     for (id obj in self) {
@@ -256,6 +256,12 @@
     NSRange range = NSMakeRange(1, self.count - 1);
     NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
     return [self objectsAtIndexes:indexSet];
+}
+
+// Converts this traversable to an array.
+- (NSArray *)fnx_toArray
+{
+    return self;
 }
 
 @end

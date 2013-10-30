@@ -15,7 +15,7 @@
  *******************************************************************/
 
 #import <Foundation/Foundation.h>
-#import "ADFNXTraversable.h"
+#import "FNXTraversable.h"
 
 
 // Scala-style functional extensions for NSArray.

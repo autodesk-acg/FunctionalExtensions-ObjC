@@ -125,7 +125,7 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
 
                 it(@"Where matches don't exist", ^{
                     NSArray *input = @[@(10), @(20), @(30), @(40)];
-                    id<FNXTraversable> result = [input fnx_filter:^BOOL(NSNumber *n) {
+                    id<FNXTraversableOnce> result = [input fnx_filter:^BOOL(NSNumber *n) {
                         return n.intValue >= 200;
                     }];
                     [[theValue(result.fnx_size) should] equal:@(0)];
@@ -134,7 +134,7 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             
             it(@"For an empty collection", ^{
                 NSArray *input = @[];
-                id<FNXTraversable> result = [input fnx_filter:^BOOL(NSNumber *n) {
+                id<FNXTraversableOnce> result = [input fnx_filter:^BOOL(NSNumber *n) {
                     return n.intValue % 20 == 0;
                 }];
                 [[theValue(result.fnx_size) should] equal:@(0)];
@@ -457,14 +457,14 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             context(@"For a nonempty collection", ^{
                 it(@"With one element", ^{
                     NSArray *input = @[@(20)];
-                    id<FNXTraversable> result = [input fnx_map:^id(NSNumber *obj) {
+                    id<FNXTraversableOnce> result = [input fnx_map:^id(NSNumber *obj) {
                         return @(2 * obj.intValue);
                     }];
                     [[((id)result) should] equal:@[@(2*20)]];
                 });
                 it(@"With several elements", ^{
                     NSArray *input = @[@(10), @(20), @(30)];
-                    id<FNXTraversable> result = [input fnx_map:^id(NSNumber *obj) {
+                    id<FNXTraversableOnce> result = [input fnx_map:^id(NSNumber *obj) {
                         return @(2 * obj.intValue);
                     }];
                     [[((id)result) should] equal:@[@(2*10), @(2*20), @(2*30)]];
@@ -472,7 +472,7 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             });
             it(@"For an empty collection", ^{
                 NSArray *input = @[];
-                id<FNXTraversable> result = [input fnx_map:^id(NSNumber *obj) {
+                id<FNXTraversableOnce> result = [input fnx_map:^id(NSNumber *obj) {
                     return @(2 * obj.intValue);
                 }];
                 [[theValue(result.fnx_isEmpty) should] beTrue];

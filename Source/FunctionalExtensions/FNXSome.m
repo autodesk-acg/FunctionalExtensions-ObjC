@@ -97,4 +97,10 @@
     return [NSArray array];
 }
 
+// Converts this traversable to an array.
+- (NSArray *)toArray
+{
+    return @[self.get];
+}
+
 @end

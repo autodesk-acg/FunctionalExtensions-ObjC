@@ -197,6 +197,13 @@
     return nil;
 }
 
+// Converts this traversable to an array.
+- (NSArray *)toArray
+{
+    NSAssert(NO, @"Abstract method called");
+    return nil;
+}
+
 @end
 
 
@@ -322,6 +329,12 @@
 - (id<FNXTraversable>)fnx_tail
 {
     return [self tail];
+}
+
+// Converts this traversable to an array.
+- (NSArray *)fnx_toArray
+{
+    return [self toArray];
 }
 
 @end

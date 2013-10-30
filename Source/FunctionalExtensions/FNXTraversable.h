@@ -19,22 +19,16 @@
 @class FNXOption;
 
 
-@protocol FNXTraversable <NSObject>
+@protocol FNXTraversableOnce <NSObject>
 
 // Counts the number of elements in the collection which satisfy a predicate.
 - (NSUInteger)fnx_count:(BOOL (^)(id obj))pred;
-
-// Selects all elements except first n ones.
-- (id<FNXTraversable>)fnx_drop:(NSUInteger)n;
 
 // Tests whether a predicate holds for some of the elements of this traversable.
 - (BOOL)fnx_exists:(BOOL (^)(id obj))pred;
 
 // Selects all elements of this collection which satisfy a predicate.
-- (id<FNXTraversable>)fnx_filter:(BOOL (^)(id obj))pred;
-
-// Selects all elements of this collection which do not satisfy a predicate.
-- (id<FNXTraversable>)fnx_filterNot:(BOOL (^)(id obj))pred;
+- (id<FNXTraversableOnce>)fnx_filter:(BOOL (^)(id obj))pred;
 
 // Finds the first element of the collection satisfying a predicate, if any.
 - (FNXOption *)fnx_find:(BOOL (^)(id obj))pred;
@@ -55,6 +49,29 @@
 // Apply the given procedure fn to every element in the collection.
 - (void)fnx_foreach:(void (^)(id obj))fn;
 
+// Tests whether this collection is empty.
+- (BOOL)fnx_isEmpty;
+
+// Builds a new collection by applying a function to all elements of this collection.
+- (id<FNXTraversableOnce>)fnx_map:(id (^)(id obj))fn;
+
+// The size of this collection.
+- (NSUInteger)fnx_size;
+
+// Converts this traversable to an array.
+- (NSArray *)fnx_toArray;
+
+@end
+
+
+@protocol FNXTraversable <FNXTraversableOnce>
+
+// Selects all elements except first n ones.
+- (id<FNXTraversable>)fnx_drop:(NSUInteger)n;
+
+// Selects all elements of this collection which do not satisfy a predicate.
+- (id<FNXTraversable>)fnx_filterNot:(BOOL (^)(id obj))pred;
+
 // Selects the first element of this collection.
 - (id)fnx_head;
 
@@ -64,23 +81,14 @@
 // Selects all elements except the last.
 - (id<FNXTraversable>)fnx_init;
 
-// Tests whether this collection is empty.
-- (BOOL)fnx_isEmpty;
-
 // Selects the last element.
 - (id)fnx_last;
 
 // Optionally selects the last element.
 - (FNXOption *)fnx_lastOption;
 
-// Builds a new collection by applying a function to all elements of this collection.
-- (id<FNXTraversable>)fnx_map:(id (^)(id obj))fn;
-
 // Tests whether the collection is not empty.
 - (BOOL)fnx_nonEmpty;
-
-// The size of this collection.
-- (NSUInteger)fnx_size;
 
 // Selects all elements except the first.
 - (id<FNXTraversable>)fnx_tail;
