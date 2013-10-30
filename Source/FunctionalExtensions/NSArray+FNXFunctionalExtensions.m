@@ -77,7 +77,7 @@
 @end
 
 
-@implementation NSArray (ADFNXTraversable)
+@implementation NSArray (FNXTraversable)
 
 // Counts the number of elements in the collection which satisfy a predicate.
 - (NSUInteger)fnx_count:(BOOL (^)(id obj))pred

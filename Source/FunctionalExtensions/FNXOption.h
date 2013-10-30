@@ -69,5 +69,5 @@
 @end
 
 
-@interface FNXOption (ADFNXTraversable) <FNXTraversable>
+@interface FNXOption (FNXTraversable) <FNXTraversable>
 @end

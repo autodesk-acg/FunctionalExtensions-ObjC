@@ -7,14 +7,14 @@
 //
 
 #import <Kiwi/Kiwi.h>
-#import "NSArray+FNXFunctionalExtensions.h"
+#import <FunctionalExtensions-ObjC/FunctionalExtensions.h>
 
 
 SPEC_BEGIN(NSArray_FNXFunctionalExtensionsSpec)
 
 describe(@"NSArray+FNXFunctionalExtensions", ^{
     
-    context(@"Scala-style functional extensions for NSArray", ^{
+    context(@"Functional extensions for NSArray", ^{
         
         beforeAll(^{ // Occurs once
         });
@@ -85,23 +85,23 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             
             it(@"For an empty collection", ^{
                 NSArray *input = @[];
-                id result = [input fnx_drop:2];
-                [[result should] equal:@[]];
+                id<FNXTraversable> result = [input fnx_drop:2];
+                [[theValue(result.fnx_size) should] equal:@(0)];
             });
             
         });
         
-        context(@"Should be able to determine if any elements fulfill a predicate", ^{
+        context(@"Should be able to determine if any elements satisfy a predicate", ^{
             
             context(@"For a nonempty collection", ^{
-                it(@"Where an item fulfills the predicate", ^{
+                it(@"Where an item satisfies the predicate", ^{
                     NSArray *input = @[@(10), @(20), @(30), @(20)];
                     [[theValue([input fnx_exists:^BOOL(NSNumber *n) {
                         return n.intValue > 10;
                     }]) should] equal:@(YES)];
                 });
 
-                it(@"Where an item doesn't fulfill the predicate", ^{
+                it(@"Where an item doesn't satisfy the predicate", ^{
                     NSArray *input = @[@(10), @(20), @(30), @(20)];
                     [[theValue([input fnx_exists:^BOOL(NSNumber *n) {
                         return n.intValue > 200;
@@ -114,6 +114,153 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
                 [[theValue([input fnx_exists:^BOOL(NSNumber *n) {
                     return n.intValue > 10;
                 }]) should] equal:@(NO)];
+            });
+            
+        });
+        
+        context(@"Should be able to select elements of the collection that satisfy a predicate", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"Where matches exist", ^{
+                    NSArray *input = @[@(10), @(20), @(30), @(40)];
+                    id result = [input fnx_filter:^BOOL(NSNumber *n) {
+                        return n.intValue % 20 == 0;
+                    }];
+                    [[result should] equal:@[@(20), @(40)]];
+                });
+
+                it(@"Where matches don't exist", ^{
+                    NSArray *input = @[@(10), @(20), @(30), @(40)];
+                    id<FNXTraversable> result = [input fnx_filter:^BOOL(NSNumber *n) {
+                        return n.intValue >= 200;
+                    }];
+                    [[theValue(result.fnx_size) should] equal:@(0)];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                id<FNXTraversable> result = [input fnx_filter:^BOOL(NSNumber *n) {
+                    return n.intValue % 20 == 0;
+                }];
+                [[theValue(result.fnx_size) should] equal:@(0)];
+            });
+            
+        });
+        
+        context(@"Should be able to select elements of the collection that don't satisfy a predicate", ^{
+            
+            it(@"For a nonempty collection", ^{
+                NSArray *input = @[@(10), @(20), @(30), @(40)];
+                id result = [input fnx_filterNot:^BOOL(NSNumber *n) {
+                    return n.intValue % 20 == 0;
+                }];
+                [[result should] equal:@[@(10), @(30)]];
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                id<FNXTraversable> result = [input fnx_filterNot:^BOOL(NSNumber *n) {
+                    return n.intValue % 20 == 0;
+                }];
+                [[theValue(result.fnx_size) should] equal:@(0)];
+            });
+            
+        });
+        
+        context(@"Should be able to find the first element satisfying a predicate", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"Where a match exists", ^{
+                    NSArray *input = @[@(10), @(20), @(30), @(40)];
+                    FNXOption *result = [input fnx_find:^BOOL(NSNumber *n) {
+                        return n.intValue >= 20;
+                    }];
+                    [[theValue(result.nonEmpty) should] beTrue];
+                    [[result.get should] equal:@(20)];
+                });
+
+                it(@"Where a match doesn't exist", ^{
+                    NSArray *input = @[@(10), @(20), @(30), @(40)];
+                    FNXOption *result = [input fnx_find:^BOOL(NSNumber *n) {
+                        return n.intValue >= 200;
+                    }];
+                    [[theValue(result.nonEmpty) should] beFalse];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                FNXOption *result = [input fnx_find:^BOOL(NSNumber *n) {
+                    return n.intValue >= 20;
+                }];
+                [[theValue(result.nonEmpty) should] beFalse];
+            });
+            
+        });
+        
+        context(@"Should be able to apply a binary operator to a start value and the elements of the collection from beginning to end", ^{
+
+            context(@"For a nonempty collection", ^{
+                it(@"With one element", ^{
+                    NSArray *input = @[@(10)];
+                    id result = [input fnx_foldLeftWithStartValue:@(1000)
+                                                               op:^id(NSNumber *accumulator, NSNumber *obj) {
+                                                                   return @(accumulator.intValue / obj.intValue);
+                                                               }];
+                    [[result should] equal:@(1000 / 10)];
+                });
+
+                it(@"With several elements", ^{
+                    NSArray *input = @[@(10), @(5)];
+                    id result = [input fnx_foldLeftWithStartValue:@(1000)
+                                                               op:^id(NSNumber *accumulator, NSNumber *obj) {
+                                                                   return @(accumulator.intValue / obj.intValue);
+                                                               }];
+                    [[result should] equal:@((1000 / 10) / 5)];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                id result = [input fnx_foldLeftWithStartValue:@(10)
+                                                           op:^id(NSNumber *accumulator, NSNumber *obj) {
+                                                               return @(accumulator.intValue + obj.intValue);
+                                                           }];
+                [[result should] equal:@(10)];
+            });
+
+        });
+        
+        context(@"Should be able to apply a binary operator to a start value and the elements of the collection from end to beginning", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"With one element", ^{
+                    NSArray *input = @[@(20)];
+                    id result = [input fnx_foldRightWithStartValue:@(5)
+                                                                op:^id(NSNumber *obj, NSNumber *accumulator) {
+                                                                    return @(obj.intValue / accumulator.intValue);
+                                                                }];
+                    [[result should] equal:@(20 / 5)];
+                });
+                
+                it(@"With several elements", ^{
+                    NSArray *input = @[@(100), @(20)];
+                    id result = [input fnx_foldRightWithStartValue:@(5)
+                                                                op:^id(NSNumber *obj, NSNumber *accumulator) {
+                                                                    return @(obj.intValue / accumulator.intValue);
+                                                                }];
+                    [[result should] equal:@(100 / (20 / 5))];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                id result = [input fnx_foldRightWithStartValue:@(5)
+                                                            op:^id(NSNumber *obj, NSNumber *accumulator) {
+                                                                return @(obj.intValue / accumulator.intValue);
+                                                            }];
+                [[result should] equal:@(5)];
             });
             
         });
