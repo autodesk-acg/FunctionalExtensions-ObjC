@@ -15,88 +15,187 @@
  *******************************************************************/
 
 #import "FNXNone.h"
+#import "NSArray+FNXFunctionalExtensions.h"
 
 
-@implementation FNXNone
+@implementation NSNull (FNXNone)
 
-+ (FNXNone *)none
+#pragma mark - FNXTraversableOnce
+
+// Counts the number of elements in the collection which satisfy a predicate.
+- (NSUInteger)fnx_count:(BOOL (^)(id obj))pred
 {
-    static dispatch_once_t once;
-    static id sharedInstance;
-    dispatch_once(&once, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    return sharedInstance;
+    return 0;
 }
 
-// Returns the option's value.
-// Abstract
-- (id)get
+// Tests whether a predicate holds for some of the elements of this traversable.
+- (BOOL)fnx_exists:(BOOL (^)(id obj))pred
 {
-    @throw [[NSException alloc] initWithName:@"ADFNXNoSuchElement"
-                                      reason:NSLocalizedString(@"No such element", @"Message when [ADFNXNone get] is called")
-                                    userInfo:nil];
+    return NO;
+}
+
+// Selects all elements of this collection which satisfy a predicate.
+- (id<FNXTraversable>)fnx_filter:(BOOL (^)(id obj))pred
+{
+    return self;
+}
+
+// Finds the first element of the collection satisfying a predicate, if any.
+- (id<FNXOption>)fnx_find:(BOOL (^)(id obj))pred
+{
+    return self;
+}
+
+// Applies a binary operator to a start value and all elements of this collection, going left to right.
+// op(...op(startValue, x_1), x_2, ..., x_n)
+- (id)fnx_foldLeftWithStartValue:(id)startValue op:(id (^)(id accumulator, id obj))op
+{
+    return startValue;
+}
+
+// Applies a binary operator to all elements of this iterable collection and a start value, going right to left.
+// op(x_1, op(x_2, ... op(x_n, z)...))
+- (id)fnx_foldRightWithStartValue:(id)startValue op:(id (^)(id obj, id accumulator))op
+{
+    return startValue;
+}
+
+// Tests whether a predicate holds for all elements of this collection.
+- (BOOL)fnx_forall:(BOOL (^)(id obj))pred
+{
+    return YES;
+}
+
+// Apply the given procedure fn to every element in the collection.
+- (void)fnx_foreach:(void (^)(id obj))fn
+{
+    // Nothing to do.
+}
+
+// Tests whether this collection is empty.
+- (BOOL)fnx_isEmpty
+{
+    return YES;
+}
+
+// Builds a new collection by applying a function to all elements of this collection.
+- (id<FNXTraversable>)fnx_map:(id (^)(id obj))fn
+{
+    return self;
+}
+
+// The size of this collection.
+- (NSUInteger)fnx_size
+{
+    return 0;
+}
+
+// Converts this traversable to an array.
+- (NSArray *)fnx_toArray
+{
+    return [NSArray array];
+}
+
+#pragma mark - FNXTraversable
+
+// Selects all elements except first n ones.
+- (id<FNXTraversable>)fnx_drop:(NSUInteger)n
+{
+    return [NSArray array];
+}
+
+// Selects all elements of this collection which do not satisfy a predicate.
+- (id<FNXTraversable>)fnx_filterNot:(BOOL (^)(id obj))pred
+{
+    return self;
 }
 
 // Selects the first element of this collection.
-- (id)head
+- (id)fnx_head
 {
     @throw [[NSException alloc] initWithName:@"ADFNXNoSuchElement"
                                       reason:NSLocalizedString(@"Head of empty list", @"Message when [ADFNXNone head] is called")
                                     userInfo:nil];
 }
 
-// Selects all elements except the last.
-// Abstract
-- (id<FNXTraversable>)initial
+// Optionally selects the first element of this collection.
+- (id<FNXOption>)fnx_headOption
 {
-    @throw [[NSException alloc] initWithName:@"ADFNXUnsupportedOperation"
-                                      reason:NSLocalizedString(@"Empty initial", @"Message when [ADFNXNone initial] is called")
-                                    userInfo:nil];
-}
-
-// Returns YES if the option is an instance of ADFNXSome, NO otherwise.
-// Abstract
-- (BOOL)isDefined
-{
-    return NO;
-}
-
-// Returns YES if the option is ADFNXNone, NO otherwise.
-// Abstract
-- (BOOL)isEmpty
-{
-    return YES;
+    return self;
 }
 
 // Selects the last element.
-- (id)last
+- (id)fnx_last
 {
     @throw [[NSException alloc] initWithName:@"ADFNXNoSuchElement"
                                       reason:NSLocalizedString(@"Last of empty list", @"Message when [ADFNXNone last] is called")
                                     userInfo:nil];
 }
 
-// Returns NO if the option is ADNFXNone, YES otherwise.
-// Abstract
-- (BOOL)nonEmpty
+// Optionally selects the last element.
+- (id<FNXOption>)fnx_lastOption
+{
+    return self;
+}
+
+// Selects all elements except the last.
+- (id<FNXTraversable>)fnx_init
+{
+    @throw [[NSException alloc] initWithName:@"ADFNXUnsupportedOperation"
+                                      reason:NSLocalizedString(@"Empty initial", @"Message when [ADFNXNone initial] is called")
+                                    userInfo:nil];
+}
+
+// Tests whether the collection is not empty.
+- (BOOL)fnx_nonEmpty
 {
     return NO;
 }
 
 // Selects all elements except the first.
-// Abstract
-- (id<FNXTraversable>)tail
+- (id<FNXTraversable>)fnx_tail
 {
     @throw [[NSException alloc] initWithName:@"ADFNXUnsupportedOperation"
                                       reason:NSLocalizedString(@"Tail of empty list", @"Message when [ADFNXNone tail] is called")
                                     userInfo:nil];
 }
 
-// Converts this traversable to an array.
-- (NSArray *)toArray
+#pragma mark - FNXOption
+
+// Returns the option's value.
+// Abstract
+- (id)fnx_get
 {
-    return [NSArray array];
+    @throw [[NSException alloc] initWithName:@"ADFNXNoSuchElement"
+                                      reason:NSLocalizedString(@"No such element", @"Message when [None get] is called")
+                                    userInfo:nil];
+}
+
+// Returns the option's value if the option is nonempty, otherwise return the result of evaluating defaultValue.
+- (id)fnx_getOrElse:(id)defaultValue
+{
+    return defaultValue;
+}
+
+// Returns YES if the option is an instance of ADFNXSome, NO otherwise.
+// Abstract
+- (BOOL)fnx_isDefined
+{
+    return NO;
+}
+
+// Returns this ADFNXOption if it is nonempty, otherwise return the result of evaluating alternative.
+- (id<FNXOption>)fnx_orElse:(id<FNXOption>(^)(void))alternative
+{
+    return alternative();
+}
+
+#pragma mark - FNXNone
+
+// Returns the singleton instance of None.
++ (id<FNXNone>)fnx_none
+{
+    return [NSNull null];
 }
 
 @end

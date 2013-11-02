@@ -16,7 +16,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class FNXOption;
+@protocol FNXOption;
 
 
 @protocol FNXTraversableOnce <NSObject>
@@ -31,7 +31,7 @@
 - (id<FNXTraversableOnce>)fnx_filter:(BOOL (^)(id obj))pred;
 
 // Finds the first element of the collection satisfying a predicate, if any.
-- (FNXOption *)fnx_find:(BOOL (^)(id obj))pred;
+- (id<FNXOption>)fnx_find:(BOOL (^)(id obj))pred;
 
 // Applies a binary operator to a start value and all elements of this collection, going left to right.
 // op(...op(startValue, x_1), x_2, ..., x_n)
@@ -76,7 +76,7 @@
 - (id)fnx_head;
 
 // Optionally selects the first element of this collection.
-- (FNXOption *)fnx_headOption;
+- (id<FNXOption>)fnx_headOption;
 
 // Selects all elements except the last.
 - (id<FNXTraversable>)fnx_init;
@@ -85,7 +85,7 @@
 - (id)fnx_last;
 
 // Optionally selects the last element.
-- (FNXOption *)fnx_lastOption;
+- (id<FNXOption>)fnx_lastOption;
 
 // Tests whether the collection is not empty.
 - (BOOL)fnx_nonEmpty;

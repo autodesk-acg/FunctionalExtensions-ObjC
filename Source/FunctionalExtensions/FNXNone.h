@@ -17,9 +17,17 @@
 #import "FNXOption.h"
 
 
-@interface FNXNone : FNXOption
+@protocol FNXNone <FNXOption>
 
-// Returns the singleton instance of ADFNXNone.
-+ (FNXNone *)none;
+// Returns the singleton instance of None.
++ (id<FNXNone>)fnx_none;
+
+@end
+
+
+@interface NSNull (FNXNone) <FNXNone>
+
+// Returns the singleton instance of None.
++ (id<FNXNone>)fnx_none;
 
 @end

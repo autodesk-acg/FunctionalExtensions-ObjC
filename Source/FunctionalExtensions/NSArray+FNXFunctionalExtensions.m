@@ -133,14 +133,14 @@
 }
 
 // Finds the first element of the collection satisfying a predicate, if any.
-- (FNXOption *)fnx_find:(BOOL (^)(id obj))pred
+- (id<FNXOption>)fnx_find:(BOOL (^)(id obj))pred
 {
     for (id obj in self) {
         if (pred(obj)) {
             return [FNXSome someWithValue:obj];
         }
     }
-    return [FNXNone none];
+    return [NSNull fnx_none];
 }
 
 // Applies a binary operator to a start value and all elements of this collection, going left to right.
@@ -192,9 +192,13 @@
 }
 
 // Optionally selects the first element of this collection.
-- (FNXOption *)fnx_headOption
+- (id<FNXOption>)fnx_headOption
 {
-    return self.count > 0 ? [FNXSome someWithValue:self[0]] : [FNXNone none];
+    if (self.count > 0) {
+        return [FNXSome someWithValue:self[0]];
+    } else {
+        return [NSNull fnx_none];
+    }
 }
 
 // Selects the last element.
@@ -205,9 +209,13 @@
 }
 
 // Optionally selects the last element.
-- (FNXOption *)fnx_lastOption
+- (id<FNXOption>)fnx_lastOption
 {
-    return self.count > 0 ? [FNXSome someWithValue:self.fnx_last] : [FNXNone none];
+    if (self.count > 0) {
+        return [FNXSome someWithValue:self.fnx_last];
+    } else {
+        return [NSNull fnx_none];
+    }
 }
 
 // Selects all elements except the last.

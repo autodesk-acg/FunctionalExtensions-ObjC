@@ -17,9 +17,17 @@
 #import "FNXOption.h"
 
 
-@interface FNXSome : FNXOption
+@protocol FNXSome <FNXOption>
 
-// Allocates and initializes an instance of ADFNXSome with value.
-+ (FNXSome *)someWithValue:(id)value;
+// Allocates and initializes an instance of FNXSome with value.
++ (id<FNXSome>)someWithValue:(id)value;
+
+@end
+
+
+@interface FNXSome : NSObject <FNXSome>
+
+// Allocates and initializes an instance of FNXSome with value.
++ (id<FNXSome>)someWithValue:(id)value;
 
 @end

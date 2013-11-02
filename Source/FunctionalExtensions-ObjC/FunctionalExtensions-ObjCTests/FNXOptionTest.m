@@ -38,72 +38,48 @@
     [super tearDown];
 }
 
-- (void)testIsDefinedWithSome
-{
-    FNXOption *optN = [FNXSome someWithValue:@(1)];
-    XCTAssertTrue(optN.isDefined, @"Option with Some should be defined.");
-}
-
-- (void)testIsDefinedWithNone
-{
-    FNXOption *optN = [FNXNone none];
-    XCTAssertFalse(optN.isDefined, @"Option with None should not be defined.");
-}
-
-- (void)testIsEmptyWithSome
-{
-    FNXOption *optN = [FNXSome someWithValue:@(1)];
-    XCTAssertFalse(optN.isEmpty, @"Option with Some should be not empty.");
-}
-
-- (void)testIsEmptyWithNone
-{
-    FNXOption *optN = [FNXNone none];
-    XCTAssertTrue(optN.isEmpty, @"Option with None should be empty.");
-}
-
-- (void)testMapWithSome
-{
-    FNXOption *optN = [FNXSome someWithValue:@(1)];
-    FNXOption *optMappedN = [optN map:^id(NSNumber *obj) {
-        return @(obj.intValue * 3);
-    }];
-    XCTAssertEqualObjects(optMappedN.get, @(3), @"Mapped option with Some didn't yield correct value.");
-}
-
-- (void)testMapWithNone
-{
-    FNXOption *optN = [FNXNone none];
-    FNXOption *optMappedN = [optN map:^id(NSNumber *obj) {
-        return @(obj.intValue * 3);
-    }];
-    XCTAssertTrue(optMappedN.isEmpty, @"Mapped option with None didn't yield correct value.");
-}
-
-- (void)testChainedOptionsWithSome
-{
-    FNXOption *name = [FNXSome someWithValue:@"  test    "];
-    
-    FNXOption *upper =
-    [[[name
-    map:^id(NSString *obj) { return [obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; }]
-    filter:^BOOL(NSString *obj) { return obj.length > 0; }]
-    map:^id(NSString *obj) { return [obj uppercaseString]; }];
-    
-    XCTAssertEqualObjects([upper getOrElse:@""], @"TEST", @"Chained option methods with Some didn't yield correct value.");
-}
-
-- (void)testChainedOptionsWithNone
-{
-    FNXOption *name = [FNXNone none];
-    
-    FNXOption *upper =
-    [[[name
-       map:^id(NSString *obj) { return [obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; }]
-      filter:^BOOL(NSString *obj) { return obj.length > 0; }]
-     map:^id(NSString *obj) { return [obj uppercaseString]; }];
-    
-    XCTAssertEqualObjects([upper getOrElse:@""], @"", @"Chained option methods with None didn't yield correct value.");
-}
+//- (void)testMapWithSome
+//{
+//    FNXOption *optN = [FNXSome someWithValue:@(1)];
+//    FNXOption *optMappedN = [optN map:^id(NSNumber *obj) {
+//        return @(obj.intValue * 3);
+//    }];
+//    XCTAssertEqualObjects(optMappedN.get, @(3), @"Mapped option with Some didn't yield correct value.");
+//}
+//
+//- (void)testMapWithNone
+//{
+//    FNXOption *optN = [FNXNone none];
+//    FNXOption *optMappedN = [optN map:^id(NSNumber *obj) {
+//        return @(obj.intValue * 3);
+//    }];
+//    XCTAssertTrue(optMappedN.isEmpty, @"Mapped option with None didn't yield correct value.");
+//}
+//
+//- (void)testChainedOptionsWithSome
+//{
+//    FNXOption *name = [FNXSome someWithValue:@"  test    "];
+//    
+//    FNXOption *upper =
+//    [[[name
+//    map:^id(NSString *obj) { return [obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; }]
+//    filter:^BOOL(NSString *obj) { return obj.length > 0; }]
+//    map:^id(NSString *obj) { return [obj uppercaseString]; }];
+//    
+//    XCTAssertEqualObjects([upper getOrElse:@""], @"TEST", @"Chained option methods with Some didn't yield correct value.");
+//}
+//
+//- (void)testChainedOptionsWithNone
+//{
+//    FNXOption *name = [FNXNone none];
+//    
+//    FNXOption *upper =
+//    [[[name
+//       map:^id(NSString *obj) { return [obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; }]
+//      filter:^BOOL(NSString *obj) { return obj.length > 0; }]
+//     map:^id(NSString *obj) { return [obj uppercaseString]; }];
+//    
+//    XCTAssertEqualObjects([upper getOrElse:@""], @"", @"Chained option methods with None didn't yield correct value.");
+//}
 
 @end

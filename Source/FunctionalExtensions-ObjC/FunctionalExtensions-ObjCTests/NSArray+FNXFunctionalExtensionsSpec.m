@@ -175,28 +175,28 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             context(@"For a nonempty collection", ^{
                 it(@"Where a match exists", ^{
                     NSArray *input = @[@(10), @(20), @(30), @(40)];
-                    FNXOption *result = [input fnx_find:^BOOL(NSNumber *n) {
+                    id<FNXOption> result = [input fnx_find:^BOOL(NSNumber *n) {
                         return n.intValue >= 20;
                     }];
-                    [[theValue(result.nonEmpty) should] beTrue];
-                    [[result.get should] equal:@(20)];
+                    [[theValue(result.fnx_nonEmpty) should] beTrue];
+                    [[result.fnx_get should] equal:@(20)];
                 });
 
                 it(@"Where a match doesn't exist", ^{
                     NSArray *input = @[@(10), @(20), @(30), @(40)];
-                    FNXOption *result = [input fnx_find:^BOOL(NSNumber *n) {
+                    id<FNXOption> result = [input fnx_find:^BOOL(NSNumber *n) {
                         return n.intValue >= 200;
                     }];
-                    [[theValue(result.nonEmpty) should] beFalse];
+                    [[theValue(result.fnx_nonEmpty) should] beFalse];
                 });
             });
             
             it(@"For an empty collection", ^{
                 NSArray *input = @[];
-                FNXOption *result = [input fnx_find:^BOOL(NSNumber *n) {
+                id<FNXOption> result = [input fnx_find:^BOOL(NSNumber *n) {
                     return n.intValue >= 20;
                 }];
-                [[theValue(result.nonEmpty) should] beFalse];
+                [[theValue(result.fnx_nonEmpty) should] beFalse];
             });
             
         });
@@ -347,23 +347,23 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             context(@"For a nonempty collection", ^{
                 it(@"With one element", ^{
                     NSArray *input = @[@(20)];
-                    FNXOption *result = input.fnx_headOption;
-                    [[theValue(result.nonEmpty) should] beTrue];
-                    [[result.get should] equal:@(20)];
+                    id<FNXOption> result = input.fnx_headOption;
+                    [[theValue(result.fnx_nonEmpty) should] beTrue];
+                    [[result.fnx_get should] equal:@(20)];
                 });
                 
                 it(@"With several elements", ^{
                     NSArray *input = @[@(100), @(20)];
-                    FNXOption *result = input.fnx_headOption;
-                    [[theValue(result.nonEmpty) should] beTrue];
-                    [[result.get should] equal:@(100)];
+                    id<FNXOption> result = input.fnx_headOption;
+                    [[theValue(result.fnx_nonEmpty) should] beTrue];
+                    [[result.fnx_get should] equal:@(100)];
                 });
             });
             
             it(@"For an empty collection", ^{
                 NSArray *input = @[];
-                FNXOption *result = input.fnx_headOption;
-                [[theValue(result.isEmpty) should] beTrue];
+                id<FNXOption> result = input.fnx_headOption;
+                [[theValue(result.fnx_isEmpty) should] beTrue];
             });
             
         });
@@ -440,23 +440,23 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             context(@"For a nonempty collection", ^{
                 it(@"With one element", ^{
                     NSArray *input = @[@(20)];
-                    FNXOption *result = input.fnx_lastOption;
-                    [[theValue(result.nonEmpty) should] beTrue];
-                    [[result.get should] equal:@(20)];
+                    id<FNXOption> result = input.fnx_lastOption;
+                    [[theValue(result.fnx_nonEmpty) should] beTrue];
+                    [[result.fnx_get should] equal:@(20)];
                 });
                 
                 it(@"With several elements", ^{
                     NSArray *input = @[@(100), @(20), @(30)];
-                    FNXOption *result = input.fnx_lastOption;
-                    [[theValue(result.nonEmpty) should] beTrue];
-                    [[result.get should] equal:@(30)];
+                    id<FNXOption> result = input.fnx_lastOption;
+                    [[theValue(result.fnx_nonEmpty) should] beTrue];
+                    [[result.fnx_get should] equal:@(30)];
                 });
             });
             
             it(@"For an empty collection", ^{
                 NSArray *input = @[];
-                FNXOption *result = input.fnx_lastOption;
-                [[theValue(result.isEmpty) should] beTrue];
+                id<FNXOption> result = input.fnx_lastOption;
+                [[theValue(result.fnx_isEmpty) should] beTrue];
             });
             
         });
