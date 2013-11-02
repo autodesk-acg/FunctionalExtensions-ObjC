@@ -15,6 +15,8 @@
  *******************************************************************/
 
 #import "NSArray+FNXFunctionalExtensions.h"
+#import "FNXTraversable.h"
+#import "FNXOption.h"
 #import "FNXSome.h"
 #import "FNXNone.h"
 

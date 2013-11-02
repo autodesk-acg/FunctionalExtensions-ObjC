@@ -28,6 +28,32 @@
 
 @implementation FNXSome
 
+#pragma mark - NSObject
+
+- (NSUInteger)hash
+{
+    return [_value hash];
+}
+
+- (BOOL)isEqual:(id)object
+{
+    if (object == self) {
+        return YES;
+    }
+    if (nil == object || ![object isKindOfClass:[self class]]) {
+        return NO;
+    }
+    return [self isEqualToSome:object];
+}
+
+- (BOOL)isEqualToSome:(FNXSome *)some
+{
+    if (some == self) {
+        return YES;
+    }
+    return [some.value isEqual:_value];
+}
+
 #pragma mark - FNXTraversableOnce
 
 // Counts the number of elements in the collection which satisfy a predicate.
@@ -117,7 +143,7 @@
 // Selects all elements except first n ones.
 - (id<FNXTraversable>)fnx_drop:(NSUInteger)n
 {
-    if (0 == n) {
+    if (0 >= n) {
         return @[_value];
     } else {
         return [NSArray array];
@@ -208,6 +234,7 @@
 
 - (instancetype)initWithValue:(id)value
 {
+    // Use [NSNull fnx_none] instead of FNXSome if you really want nil.
     NSParameterAssert(nil != value);
     
     self = [super init];

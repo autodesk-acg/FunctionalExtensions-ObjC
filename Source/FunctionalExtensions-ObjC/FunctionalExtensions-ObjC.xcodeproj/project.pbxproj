@@ -22,8 +22,10 @@
 		163BA059181E1685005C197F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 163BA03B181E1685005C197F /* UIKit.framework */; };
 		163BA061181E1685005C197F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 163BA05F181E1685005C197F /* InfoPlist.strings */; };
 		163BA06E181E31B2005C197F /* FNXOptionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 163BA06D181E31B2005C197F /* FNXOptionTest.m */; };
-		166309EA18222F2900B4ED50 /* FNXOptionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 166309E918222F2900B4ED50 /* FNXOptionSpec.m */; };
 		1671F346181FFE58000B14C8 /* NSArray+FNXFunctionalExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1671F345181FFE58000B14C8 /* NSArray+FNXFunctionalExtensionsSpec.m */; };
+		16828B8618259ADF00E6C322 /* FNXNoneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 16828B8518259ADF00E6C322 /* FNXNoneSpec.m */; };
+		16828B8818259AEC00E6C322 /* FNXSomeSpec.m in Resources */ = {isa = PBXBuildFile; fileRef = 16828B8718259AEC00E6C322 /* FNXSomeSpec.m */; };
+		16828B8918259B4000E6C322 /* FNXSomeSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 16828B8718259AEC00E6C322 /* FNXSomeSpec.m */; };
 		4C4882B1C4E54274AB2C7A76 /* libPods-FunctionalExtensions-ObjCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B13FD5812E541A1B07154B2 /* libPods-FunctionalExtensions-ObjCTests.a */; };
 /* End PBXBuildFile section */
 
@@ -57,8 +59,9 @@
 		163BA05E181E1685005C197F /* FunctionalExtensions-ObjCTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FunctionalExtensions-ObjCTests-Info.plist"; sourceTree = "<group>"; };
 		163BA060181E1685005C197F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		163BA06D181E31B2005C197F /* FNXOptionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNXOptionTest.m; sourceTree = "<group>"; };
-		166309E918222F2900B4ED50 /* FNXOptionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNXOptionSpec.m; sourceTree = "<group>"; };
 		1671F345181FFE58000B14C8 /* NSArray+FNXFunctionalExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+FNXFunctionalExtensionsSpec.m"; sourceTree = "<group>"; };
+		16828B8518259ADF00E6C322 /* FNXNoneSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNXNoneSpec.m; sourceTree = "<group>"; };
+		16828B8718259AEC00E6C322 /* FNXSomeSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNXSomeSpec.m; sourceTree = "<group>"; };
 		1B13FD5812E541A1B07154B2 /* libPods-FunctionalExtensions-ObjCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FunctionalExtensions-ObjCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		335D1D0E0CCB43DE88A508AB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		416D3DA3359D490A89CB48A0 /* Pods-FunctionalExtensions-ObjCTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunctionalExtensions-ObjCTests.xcconfig"; path = "Pods/Pods-FunctionalExtensions-ObjCTests.xcconfig"; sourceTree = "<group>"; };
@@ -153,8 +156,9 @@
 		163BA05C181E1685005C197F /* FunctionalExtensions-ObjCTests */ = {
 			isa = PBXGroup;
 			children = (
-				166309E918222F2900B4ED50 /* FNXOptionSpec.m */,
+				16828B8518259ADF00E6C322 /* FNXNoneSpec.m */,
 				163BA06D181E31B2005C197F /* FNXOptionTest.m */,
+				16828B8718259AEC00E6C322 /* FNXSomeSpec.m */,
 				1671F345181FFE58000B14C8 /* NSArray+FNXFunctionalExtensionsSpec.m */,
 				163BA05D181E1685005C197F /* Supporting Files */,
 			);
@@ -223,7 +227,7 @@
 				ORGANIZATIONNAME = "Autodesk Inc.";
 				TargetAttributes = {
 					163BA054181E1685005C197F = {
-						TestTargetID = 163BA033181E1685005C197F /* FunctionalExtensions-ObjC */;
+						TestTargetID = 163BA033181E1685005C197F;
 					};
 				};
 			};
@@ -261,6 +265,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16828B8818259AEC00E6C322 /* FNXSomeSpec.m in Resources */,
 				163BA061181E1685005C197F /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,9 +350,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16828B8918259B4000E6C322 /* FNXSomeSpec.m in Sources */,
 				163BA06E181E31B2005C197F /* FNXOptionTest.m in Sources */,
-				166309EA18222F2900B4ED50 /* FNXOptionSpec.m in Sources */,
 				1671F346181FFE58000B14C8 /* NSArray+FNXFunctionalExtensionsSpec.m in Sources */,
+				16828B8618259ADF00E6C322 /* FNXNoneSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

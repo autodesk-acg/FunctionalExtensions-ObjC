@@ -17,6 +17,8 @@
 #ifndef FunctionalExtensions_h
 #define FunctionalExtensions_h
 
+#import "FNXTraversable.h"
+#import "FNXOption.h"
 #import "FNXNone.h"
 #import "FNXSome.h"
 #import "NSArray+FNXFunctionalExtensions.h"
