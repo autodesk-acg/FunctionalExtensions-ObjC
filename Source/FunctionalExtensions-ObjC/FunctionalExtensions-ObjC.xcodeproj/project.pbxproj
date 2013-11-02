@@ -223,7 +223,7 @@
 				ORGANIZATIONNAME = "Autodesk Inc.";
 				TargetAttributes = {
 					163BA054181E1685005C197F = {
-						TestTargetID = 163BA033181E1685005C197F;
+						TestTargetID = 163BA033181E1685005C197F /* FunctionalExtensions-ObjC */;
 					};
 				};
 			};

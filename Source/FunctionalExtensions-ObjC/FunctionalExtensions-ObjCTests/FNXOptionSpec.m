@@ -23,20 +23,46 @@ SPEC_BEGIN(FNXOptionSpec)
 describe(@"FNXOption", ^{
     
     context(@"FNXNone", ^{
+        FNXNone *input = [FNXNone none];
+
         it(@"Should return 0 for the number of items that satisfy a predicate", ^{
-            FNXNone *input = [FNXNone none];
             NSUInteger result = [input count:^BOOL(NSNumber *n) {
                 return n.intValue < 5;
             }];
             [[theValue(result) should] equal:@(0)];
         });
+
+        it(@"Should throw when trying to return the value", ^{
+            [[theBlock(^{
+                [input get];
+            }) should] raise];
+        });
+
+        it(@"Should return NO for isDefined", ^{
+            [[theValue(input.isDefined) should] beFalse];
+        });
         
+        it(@"Should return YES for isEmpty", ^{
+            [[theValue(input.isEmpty) should] beTrue];
+        });
+        
+        it(@"Should return NO for nonEmpty", ^{
+            [[theValue(input.nonEmpty) should] beFalse];
+        });
+
+        it(@"Should return an alternative value for orElse", ^{
+            FNXOption *result = [input orElse:^FNXOption *{
+                return [FNXSome someWithValue:@(15)];
+            }];
+            [[result.get should] equal:@(15)];
+        });
     });
 
     context(@"FNXSome", ^{
+        FNXSome *input = [FNXSome someWithValue:@(10)];
+
         context(@"Should be able to count the number of elements that satisfy a predicate", ^{
             it(@"Where the predicate is satisfied", ^{
-                FNXSome *input = [FNXSome someWithValue:@(10)];
                 NSUInteger result = [input count:^BOOL(NSNumber *n) {
                     return n.intValue > 5;
                 }];
@@ -50,6 +76,29 @@ describe(@"FNXOption", ^{
                 }];
                 [[theValue(result) should] equal:@(0)];
             });
+        });
+        
+        it(@"Should be able to return the value", ^{
+            [[input.get should] equal:@(10)];
+        });
+        
+        it(@"Should return YES for isDefined", ^{
+            [[theValue(input.isDefined) should] beTrue];
+        });
+        
+        it(@"Should return NO for isEmpty", ^{
+            [[theValue(input.isEmpty) should] beFalse];
+        });
+        
+        it(@"Should return YES for nonEmpty", ^{
+            [[theValue(input.nonEmpty) should] beTrue];
+        });
+        
+        it(@"Should return the same value for orElse", ^{
+            FNXOption *result = [input orElse:^FNXOption *{
+                return [FNXSome someWithValue:@(15)];
+            }];
+            [[result.get should] equal:@(10)];
         });
     });
 
