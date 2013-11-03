@@ -94,3 +94,11 @@
 - (id<FNXTraversable>)fnx_tail;
 
 @end
+
+
+@protocol FNXIterable <FNXTraversable>
+
+// Returns an iterator for elements in this collection
+- (NSEnumerator *)fnx_iterator;
+
+@end

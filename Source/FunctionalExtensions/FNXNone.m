@@ -35,7 +35,7 @@
 }
 
 // Selects all elements of this collection which satisfy a predicate.
-- (id<FNXTraversable>)fnx_filter:(BOOL (^)(id obj))pred
+- (id<FNXOption>)fnx_filter:(BOOL (^)(id obj))pred
 {
     return self;
 }
@@ -79,7 +79,7 @@
 }
 
 // Builds a new collection by applying a function to all elements of this collection.
-- (id<FNXTraversable>)fnx_map:(id (^)(id obj))fn
+- (id<FNXOption>)fnx_map:(id (^)(id obj))fn
 {
     return self;
 }
@@ -105,7 +105,7 @@
 }
 
 // Selects all elements of this collection which do not satisfy a predicate.
-- (id<FNXTraversable>)fnx_filterNot:(BOOL (^)(id obj))pred
+- (id<FNXOption>)fnx_filterNot:(BOOL (^)(id obj))pred
 {
     return self;
 }
@@ -188,6 +188,17 @@
 - (id<FNXOption>)fnx_orElse:(id<FNXOption>(^)(void))alternative
 {
     return alternative();
+}
+
+// Builds a new collection by applying a function to all elements of this collection.
+- (id<FNXOption>)fnx_mapAsOption:(id (^)(id obj))fn
+{
+    return self;
+}
+
+- (id<FNXIterable>)fnx_toIterable
+{
+    return [FNXOptionAsIterable optionAsIterableWithOption:self];
 }
 
 #pragma mark - FNXNone

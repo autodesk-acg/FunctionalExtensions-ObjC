@@ -42,5 +42,5 @@
 @end
 
 
-@interface NSArray (FNXTraversable) <FNXTraversable>
+@interface NSArray (FNXIterable) <FNXIterable>
 @end

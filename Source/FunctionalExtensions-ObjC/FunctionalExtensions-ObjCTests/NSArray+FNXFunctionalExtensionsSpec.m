@@ -540,7 +540,31 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
                 }) should] raise];
             });
         });
-        
+    });
+    
+    context(@"<FNXIterable>", ^{
+        context(@"Should be able to iterate over the items in the collection with the returned iterator", ^{
+            
+            void (^testIteratorWithInput)(NSArray *input) = ^(NSArray *input) {
+                NSUInteger i = 0;
+                NSEnumerator *iterator = [input fnx_iterator];
+                id obj = iterator.nextObject;
+                while (obj) {
+                    [[obj should] equal:input[i]];
+                    ++i;
+                    obj = iterator.nextObject;
+                }
+            };
+            
+            it(@"For a nonempty collection", ^{
+                NSArray *input = @[@(10), @(20), @(30)];
+                testIteratorWithInput(input);
+            });
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                testIteratorWithInput(input);
+            });
+        });
     });
     
 });

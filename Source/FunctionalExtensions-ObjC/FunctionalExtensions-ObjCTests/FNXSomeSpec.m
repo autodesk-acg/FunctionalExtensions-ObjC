@@ -60,7 +60,7 @@ describe(@"FNXSome", ^{
         
         context(@"Should be able to select elements of the collection that don't satisfy a predicate", ^{
             it(@"Where the predicate is satisfied", ^{
-                id<FNXTraversableOnce> result = [input fnx_filter:^BOOL(NSNumber *n) {
+                id<FNXOption> result = [input fnx_filter:^BOOL(NSNumber *n) {
                     return n.intValue > 5;
                 }];
                 [[theValue([result fnx_size]) should] equal:@(1)];
@@ -68,7 +68,7 @@ describe(@"FNXSome", ^{
             });
             
             it(@"Where the predicate isn't satisfied", ^{
-                id<FNXTraversableOnce> result = [input fnx_filter:^BOOL(NSNumber *n) {
+                id<FNXOption> result = [input fnx_filter:^BOOL(NSNumber *n) {
                     return n.intValue < 5;
                 }];
                 [[theValue([result fnx_size]) should] equal:@(0)];
@@ -138,7 +138,7 @@ describe(@"FNXSome", ^{
         });
         
         context(@"Should be able to build a new collection by applying a function to the value", ^{
-            id<FNXTraversableOnce> result = [input fnx_map:^id(NSNumber *obj) {
+            id<FNXOption> result = [input fnx_map:^id(NSNumber *obj) {
                 return @(2 * obj.intValue);
             }];
             [[((id)result) should] equal:@[@(2*10)]];
@@ -174,14 +174,14 @@ describe(@"FNXSome", ^{
         
         context(@"Should be able to select elements of the collection that don't satisfy a predicate", ^{
             it(@"Where the predicate is satisfied", ^{
-                id<FNXTraversable> result = [input fnx_filterNot:^BOOL(NSNumber *n) {
+                id<FNXOption> result = [input fnx_filterNot:^BOOL(NSNumber *n) {
                     return n.intValue > 5;
                 }];
                 [[theValue([result fnx_size]) should] equal:@(0)];
             });
             
             it(@"Where the predicate isn't satisfied", ^{
-                id<FNXTraversable> result = [input fnx_filterNot:^BOOL(NSNumber *n) {
+                id<FNXOption> result = [input fnx_filterNot:^BOOL(NSNumber *n) {
                     return n.intValue < 5;
                 }];
                 [[theValue([result fnx_size]) should] equal:@(1)];
