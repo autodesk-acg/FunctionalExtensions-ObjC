@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		11BE7C62877E4DAFB3F79853 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CCDBFF2C1B4CB3A9014C36 /* libPods.a */; };
+		1638BA331825D4AC0004D729 /* NSOrderedSet+FNXFunctionalExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1638BA321825D4AC0004D729 /* NSOrderedSet+FNXFunctionalExtensionsSpec.m */; };
 		163BA038181E1685005C197F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 163BA037181E1685005C197F /* Foundation.framework */; };
 		163BA03A181E1685005C197F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 163BA039181E1685005C197F /* CoreGraphics.framework */; };
 		163BA03C181E1685005C197F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 163BA03B181E1685005C197F /* UIKit.framework */; };
@@ -26,6 +27,7 @@
 		16828B8618259ADF00E6C322 /* FNXNoneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 16828B8518259ADF00E6C322 /* FNXNoneSpec.m */; };
 		16828B8818259AEC00E6C322 /* FNXSomeSpec.m in Resources */ = {isa = PBXBuildFile; fileRef = 16828B8718259AEC00E6C322 /* FNXSomeSpec.m */; };
 		16828B8918259B4000E6C322 /* FNXSomeSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 16828B8718259AEC00E6C322 /* FNXSomeSpec.m */; };
+		169AEBA21825CE6800177F64 /* FNXTraversableSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 169AEBA11825CE6800177F64 /* FNXTraversableSpec.m */; };
 		4C4882B1C4E54274AB2C7A76 /* libPods-FunctionalExtensions-ObjCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B13FD5812E541A1B07154B2 /* libPods-FunctionalExtensions-ObjCTests.a */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1638BA321825D4AC0004D729 /* NSOrderedSet+FNXFunctionalExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOrderedSet+FNXFunctionalExtensionsSpec.m"; sourceTree = "<group>"; };
 		163BA034181E1685005C197F /* FunctionalExtensions-ObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FunctionalExtensions-ObjC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		163BA037181E1685005C197F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		163BA039181E1685005C197F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -62,6 +65,7 @@
 		1671F345181FFE58000B14C8 /* NSArray+FNXFunctionalExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+FNXFunctionalExtensionsSpec.m"; sourceTree = "<group>"; };
 		16828B8518259ADF00E6C322 /* FNXNoneSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNXNoneSpec.m; sourceTree = "<group>"; };
 		16828B8718259AEC00E6C322 /* FNXSomeSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNXSomeSpec.m; sourceTree = "<group>"; };
+		169AEBA11825CE6800177F64 /* FNXTraversableSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNXTraversableSpec.m; sourceTree = "<group>"; };
 		1B13FD5812E541A1B07154B2 /* libPods-FunctionalExtensions-ObjCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FunctionalExtensions-ObjCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		335D1D0E0CCB43DE88A508AB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		416D3DA3359D490A89CB48A0 /* Pods-FunctionalExtensions-ObjCTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunctionalExtensions-ObjCTests.xcconfig"; path = "Pods/Pods-FunctionalExtensions-ObjCTests.xcconfig"; sourceTree = "<group>"; };
@@ -159,7 +163,9 @@
 				16828B8518259ADF00E6C322 /* FNXNoneSpec.m */,
 				163BA06D181E31B2005C197F /* FNXOptionTest.m */,
 				16828B8718259AEC00E6C322 /* FNXSomeSpec.m */,
+				169AEBA11825CE6800177F64 /* FNXTraversableSpec.m */,
 				1671F345181FFE58000B14C8 /* NSArray+FNXFunctionalExtensionsSpec.m */,
+				1638BA321825D4AC0004D729 /* NSOrderedSet+FNXFunctionalExtensionsSpec.m */,
 				163BA05D181E1685005C197F /* Supporting Files */,
 			);
 			path = "FunctionalExtensions-ObjCTests";
@@ -351,6 +357,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				16828B8918259B4000E6C322 /* FNXSomeSpec.m in Sources */,
+				169AEBA21825CE6800177F64 /* FNXTraversableSpec.m in Sources */,
+				1638BA331825D4AC0004D729 /* NSOrderedSet+FNXFunctionalExtensionsSpec.m in Sources */,
 				163BA06E181E31B2005C197F /* FNXOptionTest.m in Sources */,
 				1671F346181FFE58000B14C8 /* NSArray+FNXFunctionalExtensionsSpec.m in Sources */,
 				16828B8618259ADF00E6C322 /* FNXNoneSpec.m in Sources */,
