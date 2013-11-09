@@ -216,7 +216,7 @@ describe(@"NSOrderedSet+FNXFunctionalExtensions", ^{
             
             context(@"For a nonempty collection", ^{
                 it(@"With one element", ^{
-                    NSOrderedSet *input = [NSOrderedSet orderedSetWithArray:@[@(20)]];
+                    NSOrderedSet *input = [NSOrderedSet orderedSetWithObject:@(20)];
                     id result = [input fnx_foldRightWithStartValue:@(5)
                                                                 op:^id(NSNumber *obj, NSNumber *accumulator) {
                                                                     return @(obj.intValue / accumulator.intValue);
@@ -298,7 +298,7 @@ describe(@"NSOrderedSet+FNXFunctionalExtensions", ^{
             
             context(@"For a nonempty collection", ^{
                 it(@"With one element", ^{
-                    NSOrderedSet *input = [NSOrderedSet orderedSetWithArray:@[@(20)]];
+                    NSOrderedSet *input = [NSOrderedSet orderedSetWithObject:@(20)];
                     [[input.fnx_head should] equal:@(20)];
                 });
                 
@@ -320,7 +320,7 @@ describe(@"NSOrderedSet+FNXFunctionalExtensions", ^{
             
             context(@"For a nonempty collection", ^{
                 it(@"With one element", ^{
-                    NSOrderedSet *input = [NSOrderedSet orderedSetWithArray:@[@(20)]];
+                    NSOrderedSet *input = [NSOrderedSet orderedSetWithObject:@(20)];
                     id<FNXOption> result = input.fnx_headOption;
                     [[theValue(result.fnx_nonEmpty) should] beTrue];
                     [[result.fnx_get should] equal:@(20)];
@@ -345,7 +345,7 @@ describe(@"NSOrderedSet+FNXFunctionalExtensions", ^{
             
             context(@"For a nonempty collection", ^{
                 it(@"With one element", ^{
-                    NSOrderedSet *input = [NSOrderedSet orderedSetWithArray:@[@(20)]];
+                    NSOrderedSet *input = [NSOrderedSet orderedSetWithObject:@(20)];
                     [[theValue(input.fnx_init.fnx_isEmpty) should] beTrue];
                 });
                 
@@ -367,7 +367,7 @@ describe(@"NSOrderedSet+FNXFunctionalExtensions", ^{
             
             context(@"For a nonempty collection", ^{
                 it(@"With one element", ^{
-                    NSOrderedSet *input = [NSOrderedSet orderedSetWithArray:@[@(20)]];
+                    NSOrderedSet *input = [NSOrderedSet orderedSetWithObject:@(20)];
                     [[theValue(input.fnx_isEmpty) should] beFalse];
                 });
                 
@@ -387,7 +387,7 @@ describe(@"NSOrderedSet+FNXFunctionalExtensions", ^{
             
             context(@"For a nonempty collection", ^{
                 it(@"With one element", ^{
-                    NSOrderedSet *input = [NSOrderedSet orderedSetWithArray:@[@(20)]];
+                    NSOrderedSet *input = [NSOrderedSet orderedSetWithObject:@(20)];
                     [[input.fnx_last should] equal:@(20)];
                 });
                 
@@ -409,7 +409,7 @@ describe(@"NSOrderedSet+FNXFunctionalExtensions", ^{
             
             context(@"For a nonempty collection", ^{
                 it(@"With one element", ^{
-                    NSOrderedSet *input = [NSOrderedSet orderedSetWithArray:@[@(20)]];
+                    NSOrderedSet *input = [NSOrderedSet orderedSetWithObject:@(20)];
                     id<FNXOption> result = input.fnx_lastOption;
                     [[theValue(result.fnx_nonEmpty) should] beTrue];
                     [[result.fnx_get should] equal:@(20)];
@@ -433,7 +433,7 @@ describe(@"NSOrderedSet+FNXFunctionalExtensions", ^{
         context(@"Should be able to build a new collection by applying a function to all elements", ^{
             context(@"For a nonempty collection", ^{
                 it(@"With one element", ^{
-                    NSOrderedSet *input = [NSOrderedSet orderedSetWithArray:@[@(20)]];
+                    NSOrderedSet *input = [NSOrderedSet orderedSetWithObject:@(20)];
                     id<FNXTraversableOnce> result = [input fnx_map:^id(NSNumber *obj) {
                         return @(2 * obj.intValue);
                     }];
