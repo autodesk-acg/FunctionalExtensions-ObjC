@@ -14,16 +14,17 @@
  * (Rights  in Technical Data and Computer Software),  as applicable.
  *******************************************************************/
 
-#ifndef FunctionalExtensions_h
-#define FunctionalExtensions_h
-
+#import <Foundation/Foundation.h>
 #import "FNXTraversable.h"
-#import "FNXOption.h"
-#import "FNXNone.h"
-#import "FNXSome.h"
-#import "FNXTuple2.h"
-#import "NSArray+FNXFunctionalExtensions.h"
-#import "NSDictionary+FNXFunctionalExtensions.h"
-#import "NSOrderedSet+FNXFunctionalExtensions.h"
 
-#endif
+
+@interface NSDictionary (FNXFunctionalExtensions)
+
+// Builds a new collection by applying a function to all elements of this collection.
+- (id)fnx_map:(id (^)(id obj))fn; // <FNXTraversableOnce>
+
+@end
+
+
+//@interface NSDictionary (FNXIterable) <FNXIterable>
+//@end

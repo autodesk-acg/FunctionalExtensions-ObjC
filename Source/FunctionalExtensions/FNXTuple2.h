@@ -14,16 +14,14 @@
  * (Rights  in Technical Data and Computer Software),  as applicable.
  *******************************************************************/
 
-#ifndef FunctionalExtensions_h
-#define FunctionalExtensions_h
+#import <Foundation/Foundation.h>
 
-#import "FNXTraversable.h"
-#import "FNXOption.h"
-#import "FNXNone.h"
-#import "FNXSome.h"
-#import "FNXTuple2.h"
-#import "NSArray+FNXFunctionalExtensions.h"
-#import "NSDictionary+FNXFunctionalExtensions.h"
-#import "NSOrderedSet+FNXFunctionalExtensions.h"
 
-#endif
+@interface FNXTuple2 : NSObject
+
+@property (strong, nonatomic, readonly) id _1;
+@property (strong, nonatomic, readonly) id _2;
+
+- (instancetype)initWith_1:(id)_1 _2:(id)_2;
+
+@end
