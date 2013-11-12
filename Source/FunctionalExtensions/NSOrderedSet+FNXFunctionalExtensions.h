@@ -20,9 +20,9 @@
 
 @interface NSOrderedSet (FNXFunctionalExtensions)
 
-//// Builds a new collection by applying a function to all elements of this collection
-//// and using the elements of the resulting collections.
-//- (NSArray *)fnx_flatMap:(id (^)(id obj))fn;
+// Builds a new collection by applying a function to all elements of this collection
+// and using the elements of the resulting collections.
+- (NSOrderedSet *)fnx_flatMap:(NSArray *(^)(id obj))fn;
 
 // Returns a new collection with the elements of this collection in reversed order.
 - (NSOrderedSet *)fnx_reverse;

@@ -23,6 +23,17 @@
 
 @implementation NSOrderedSet (FNXFunctionalExtensions)
 
+// Builds a new collection by applying a function to all elements of this collection
+// and using the elements of the resulting collections.
+- (NSOrderedSet *)fnx_flatMap:(NSArray *(^)(id obj))fn
+{
+    NSMutableArray *result = [NSMutableArray array];
+    for (id obj in self) {
+        [result addObjectsFromArray:fn(obj)];
+    }
+    return [NSOrderedSet orderedSetWithArray:result];
+}
+
 // Returns a new collection with the elements of this collection in reversed order.
 - (NSOrderedSet *)fnx_reverse
 {
