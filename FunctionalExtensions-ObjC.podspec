@@ -16,7 +16,8 @@ Pod::Spec.new do |s|
   s.author       = { "Kent Wong" => "kent.wong@autodesk.com" }
   s.platform     = :ios, '6.0'
   s.source       = { :git => "https://github.com/autodesk-acg/FunctionalExtensions-ObjC.git", :tag => "0.0.1" }
-  s.source_files  = 'Source/FunctionalExtensions/*.{h,m}'
+  s.source_files = 'Source/FunctionalExtensions/*.{h,m}'
+  s.frameworks   = 'Foundation'
   s.requires_arc = true
 
 end
