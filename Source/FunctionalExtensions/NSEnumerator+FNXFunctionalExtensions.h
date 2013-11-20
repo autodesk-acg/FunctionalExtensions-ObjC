@@ -14,12 +14,13 @@
  * (Rights  in Technical Data and Computer Software),  as applicable.
  *******************************************************************/
 
+#import <Foundation/Foundation.h>
 #import "FNXTraversable.h"
-#import "FNXOption.h"
-#import "FNXNone.h"
-#import "FNXSome.h"
-#import "FNXTuple2.h"
-#import "NSArray+FNXFunctionalExtensions.h"
-#import "NSDictionary+FNXFunctionalExtensions.h"
-#import "NSEnumerator+FNXFunctionalExtensions.h"
-#import "NSOrderedSet+FNXFunctionalExtensions.h"
+
+
+@interface NSEnumerator (FNXFunctionalExtensions)
+@end
+
+
+@interface NSEnumerator (FNXIterable) <FNXIterable>
+@end
