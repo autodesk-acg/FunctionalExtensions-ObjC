@@ -41,9 +41,37 @@
     return [result copy];
 }
 
+// Invokes pred for elements of this collection. Returns NO if any results return NO; YES, otherwise.
+- (BOOL)fnx_forallWithSelector:(SEL)pred
+{
+    NSParameterAssert(nil != pred);
+    for (id obj in self) {
+        IMP imp = [obj methodForSelector:pred];
+        BOOL (*resolvedPred)(id, SEL) = (void *)imp;
+        BOOL result = resolvedPred(obj, pred);
+        if (!result) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+// Invokes fn for elements of this collection.
+// fn must be a method on the element that takes no arguments and returns void.
+- (void)fnx_foreachWithSelector:(SEL)fn
+{
+    NSParameterAssert(nil != fn);
+    for (id obj in self) {
+        IMP imp = [obj methodForSelector:fn];
+        void (*resolvedFn)(id, SEL) = (void *)imp;
+        resolvedFn(obj, fn);
+    }
+}
+
 // Applies a function fn to all elements of this collection in _parallel_.
 - (void)fnx_foreachParallel:(void (^)(id obj))fn
 {
+    NSParameterAssert(nil != fn);
     [self enumerateObjectsWithOptions:NSEnumerationConcurrent
                            usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                fn(obj);
@@ -53,7 +81,7 @@
 // Builds a new collection by applying a function to all elements of this array in _parallel_.
 // If fn could return nil, it must return [FNXNone none] instead and the other values
 // should be mapped as FNXSome values.
-- (NSArray *)adfnx_mapParallel:(id (^)(id obj))fn
+- (NSArray *)fnx_mapParallel:(id (^)(id obj))fn
 {
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
     for (NSUInteger i = 0; i < self.count; ++i) {
@@ -160,6 +188,7 @@
 // op(x_1, op(x_2, ... op(x_n, z)...))
 - (id)fnx_foldRightWithStartValue:(id)startValue op:(id (^)(id obj, id accumulator))op
 {
+    NSParameterAssert(nil != op);
     id accumulator = startValue;
     for (id obj in self.reverseObjectEnumerator) {
         accumulator = op(obj, accumulator);
@@ -170,6 +199,7 @@
 // Tests whether a predicate holds for all elements of this collection.
 - (BOOL)fnx_forall:(BOOL (^)(id obj))pred
 {
+    NSParameterAssert(nil != pred);
     for (id obj in self) {
         if (!pred(obj)) {
             return NO;
@@ -181,6 +211,7 @@
 // Applies a function fn to all elements of this collection.
 - (void)fnx_foreach:(void (^)(id obj))fn
 {
+    NSParameterAssert(nil != fn);
     for (id obj in self) {
         fn(obj);
     }

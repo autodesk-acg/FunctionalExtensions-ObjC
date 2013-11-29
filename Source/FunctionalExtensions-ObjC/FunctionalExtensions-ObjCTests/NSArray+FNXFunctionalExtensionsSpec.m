@@ -14,6 +14,9 @@
  * (Rights  in Technical Data and Computer Software),  as applicable.
  *******************************************************************/
 
+#import "FNXMockWithBOOL.h"
+#import "FNXMockWithProcedure.h"
+
 #import <Kiwi/Kiwi.h>
 #import <FunctionalExtensions-ObjC/FunctionalExtensions.h>
 
@@ -55,6 +58,54 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             });
             
         });
+        
+        context(@"Should be able to test whether or not a selector predicate holds for all elements", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"Where the predicate holds", ^{
+                    NSArray *input = @[[FNXMockWithBOOL mockWithBOOL:YES],
+                                       [FNXMockWithBOOL mockWithBOOL:YES],
+                                       [FNXMockWithBOOL mockWithBOOL:YES]];
+                    BOOL result = [input fnx_forallWithSelector:@selector(boolValue)];
+                    [[theValue(result) should] beTrue];
+                });
+                
+                it(@"Where the predicate doesn't hold", ^{
+                    NSArray *input = @[[FNXMockWithBOOL mockWithBOOL:NO],
+                                       [FNXMockWithBOOL mockWithBOOL:YES],
+                                       [FNXMockWithBOOL mockWithBOOL:NO]];
+                    BOOL result = [input fnx_forallWithSelector:@selector(boolValue)];
+                    [[theValue(result) should] beFalse];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                BOOL result = [input fnx_forallWithSelector:@selector(boolValue)];
+                [[theValue(result) should] beTrue];
+            });
+            
+        });
+        
+        context(@"Should be able to apply a function to each element", ^{
+            
+            context(@"For a nonempty collection", ^{
+                NSArray *input = @[[FNXMockWithProcedure mockWithProcedure],
+                                   [FNXMockWithProcedure mockWithProcedure],
+                                   [FNXMockWithProcedure mockWithProcedure]];
+                [input fnx_foreachWithSelector:@selector(procedure)];
+                for (FNXMockWithProcedure *obj in input) {
+                    [[theValue(obj.testValue) should] equal:theValue(2)];
+                }
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                [input fnx_foreachWithSelector:@selector(procedure)];
+            });
+            
+        });
+        
     });
 
     context(@"<FNXTraversable>", ^{
