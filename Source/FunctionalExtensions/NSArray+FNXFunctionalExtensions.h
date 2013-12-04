@@ -44,7 +44,12 @@
 
 //// Applies a function fn to all elements of this collection in _parallel_.
 //- (void)fnx_foreachParallel:(void (^)(id obj))fn;
-//
+
+// Partitions this collection into a dictionary of collections according to some discriminator function, fn. The
+// discriminator function should return an object representing which bucket the object must be placed into and that will
+// be used as a key in the resultant dictionary.
+- (NSDictionary *)fnx_groupBy:(id (^)(id obj))fn;
+
 //// Builds a new collection by applying a function to all elements of this array in _parallel_.
 //// If fn could return nil, it must return [FNXNone none] instead and the other values
 //// should be mapped as FNXSome values.

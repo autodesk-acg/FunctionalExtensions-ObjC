@@ -58,6 +58,31 @@
     }
 }
 
+// Partitions this collection into a dictionary of collections according to some discriminator function, fn. The
+// discriminator function should return an object representing which bucket the object must be placed into and that will
+// be used as a key in the resultant dictionary.
+- (NSDictionary *)fnx_groupBy:(id (^)(id obj))fn
+{
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    // Partition the objects in this collection into buckets whose key is determined by fn.
+    for (id obj in self) {
+        id key = fn(obj);
+        NSMutableArray *collectionForKey = result[key];
+        if (nil == collectionForKey) {
+            collectionForKey = [NSMutableArray array];
+            result[key] = collectionForKey;
+        }
+        [collectionForKey addObject:obj];
+    }
+    // Change the mutable arrays in the result to immutable arrays.
+    NSArray *keys = result.allKeys;
+    for (id key in keys) {
+        result[key] = [result[key] copy];
+    }
+    // Return an immutable result.
+    return [result copy];
+}
+
 // Builds a new collection by applying a function to all elements of this collection
 // and using the elements of the resulting collections.
 - (NSArray *)fnx_flatMap:(NSArray *(^)(id obj))fn

@@ -61,20 +61,22 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
         
         context(@"Should be able to drop the longest prefix of elements that satisfy a predicate", ^{
             
-            it(@"For a nonempty collection whose predicate includes several prefix elements", ^{
-                NSArray *input = @[@(10), @(20), @(30), @(40)];
-                NSArray *result = [input fnx_dropWhile:^BOOL (NSNumber *obj) {
-                    return obj.intValue < 20;
-                }];
-                [[result should] equal:@[@(20), @(30), @(40)]];
-            });
-            
-            it(@"For a nonempty collection whose predicate does not include several prefix elements", ^{
-                NSArray *input = @[@(10), @(20), @(30), @(40)];
-                NSArray *result = [input fnx_dropWhile:^BOOL (NSNumber *obj) {
-                    return obj.intValue > 20;
-                }];
-                [[result should] equal:input];
+            context(@"For a nonempty collection", ^{
+                it(@"Whose predicate includes several prefix elements", ^{
+                    NSArray *input = @[@(10), @(20), @(30), @(40)];
+                    NSArray *result = [input fnx_dropWhile:^BOOL (NSNumber *obj) {
+                        return obj.intValue < 20;
+                    }];
+                    [[result should] equal:@[@(20), @(30), @(40)]];
+                });
+                
+                it(@"Whose predicate does not include several prefix elements", ^{
+                    NSArray *input = @[@(10), @(20), @(30), @(40)];
+                    NSArray *result = [input fnx_dropWhile:^BOOL (NSNumber *obj) {
+                        return obj.intValue > 20;
+                    }];
+                    [[result should] equal:input];
+                });
             });
             
             it(@"For an empty collection", ^{
@@ -83,6 +85,34 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
                     return obj.intValue < 20;
                 }];
                 [[theValue(result.fnx_size) should] equal:@(0)];
+            });
+            
+        });
+        
+        context(@"Should be able to partition elements based on a discriminator function", ^{
+            
+            id (^discriminate)(id) = ^id (NSNumber *obj) {
+                if (obj.intValue < 3) {
+                    return @"A";
+                } else if (obj.intValue < 6) {
+                    return @"B";
+                } else {
+                    return @"C";
+                }
+            };
+            
+            context(@"For a nonempty collection", ^{
+                NSArray *input = @[@(1), @(2), @(3), @(4), @(5), @(6), @(7), @(8)];
+                NSDictionary *result = [input fnx_groupBy:discriminate];
+                [[result[@"A"] should] equal:@[@(1), @(2)]];
+                [[result[@"B"] should] equal:@[@(3), @(4), @(5)]];
+                [[result[@"C"] should] equal:@[@(6), @(7), @(8)]];
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                NSDictionary *result = [input fnx_groupBy:discriminate];
+                [[theValue(result.count) should] equal:@(0)];
             });
             
         });
