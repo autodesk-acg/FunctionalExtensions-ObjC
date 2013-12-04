@@ -58,6 +58,34 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             });
             
         });
+        
+        context(@"Should be able to drop the longest prefix of elements that satisfy a predicate", ^{
+            
+            it(@"For a nonempty collection whose predicate includes several prefix elements", ^{
+                NSArray *input = @[@(10), @(20), @(30), @(40)];
+                NSArray *result = [input fnx_dropWhile:^BOOL (NSNumber *obj) {
+                    return obj.intValue < 20;
+                }];
+                [[result should] equal:@[@(20), @(30), @(40)]];
+            });
+            
+            it(@"For a nonempty collection whose predicate does not include several prefix elements", ^{
+                NSArray *input = @[@(10), @(20), @(30), @(40)];
+                NSArray *result = [input fnx_dropWhile:^BOOL (NSNumber *obj) {
+                    return obj.intValue > 20;
+                }];
+                [[result should] equal:input];
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                NSArray *result = [input fnx_dropWhile:^BOOL (NSNumber *obj) {
+                    return obj.intValue < 20;
+                }];
+                [[theValue(result.fnx_size) should] equal:@(0)];
+            });
+            
+        });
 
         context(@"Should be able to return the array elements in reverse order", ^{
 

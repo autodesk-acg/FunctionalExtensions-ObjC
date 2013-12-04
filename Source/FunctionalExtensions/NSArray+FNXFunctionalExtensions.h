@@ -27,6 +27,9 @@
 // Selects all elements except last n ones.
 - (NSArray *)fnx_dropRight:(NSUInteger)n;
 
+// Drops longest prefix of elements that satisfy a predicate.
+- (NSArray *)fnx_dropWhile:(BOOL (^)(id obj))pred;
+
 // Builds a new collection by applying a function to all elements of this collection
 // and using the elements of the resulting collections.
 - (NSArray *)fnx_flatMap:(NSArray *(^)(id obj))fn;

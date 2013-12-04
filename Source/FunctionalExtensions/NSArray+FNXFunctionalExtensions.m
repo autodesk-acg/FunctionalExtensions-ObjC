@@ -42,6 +42,22 @@
     }
 }
 
+// Drops longest prefix of elements that satisfy a predicate.
+- (NSArray *)fnx_dropWhile:(BOOL (^)(id obj))pred
+{
+    if (0 == self.count) {
+        return [NSArray array];
+    } else {
+        NSUInteger start = 0;
+        while (start < self.count && pred(self[start])) {
+            ++start;
+        }
+        NSRange range = NSMakeRange(start, self.count - start);
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+        return [self objectsAtIndexes:indexSet];
+    }
+}
+
 // Builds a new collection by applying a function to all elements of this collection
 // and using the elements of the resulting collections.
 - (NSArray *)fnx_flatMap:(NSArray *(^)(id obj))fn
