@@ -18,7 +18,7 @@
 #import "FNXTraversable.h"
 
 
-@interface NSSet (FNXFunctionalExtensions)
+@interface NSSet (FNXFunctionalExtensions) <FNXIterable>
 @end
 
 

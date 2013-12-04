@@ -19,7 +19,7 @@
 
 
 // Scala-style functional extensions for NSArray.
-@interface NSArray (FNXFunctionalExtensions)
+@interface NSArray (FNXFunctionalExtensions) <FNXIterable>
 
 // Builds a new array from this collection without any duplicate elements.
 - (NSArray *)fnx_distinct;
@@ -50,5 +50,86 @@
 @end
 
 
-@interface NSArray (FNXIterable) <FNXIterable>
+@interface NSArray (FNXTraversableOnce)
+
+// Counts the number of elements in the collection which satisfy a predicate.
+- (NSUInteger)fnx_count:(BOOL (^)(id obj))pred;
+
+// Tests whether a predicate holds for some of the elements of this traversable.
+- (BOOL)fnx_exists:(BOOL (^)(id obj))pred;
+
+// Selects all elements of this collection which satisfy a predicate.
+- (NSArray *)fnx_filter:(BOOL (^)(id obj))pred;
+
+// Finds the first element of the collection satisfying a predicate, if any.
+- (id<FNXOption>)fnx_find:(BOOL (^)(id obj))pred;
+
+// Applies a binary operator to a start value and all elements of this collection, going left to right.
+// op(...op(startValue, x_1), x_2, ..., x_n)
+// Can be used on an empty traversable.
+- (id)fnx_foldLeftWithStartValue:(id)startValue op:(id (^)(id accumulator, id obj))op;
+
+// Applies a binary operator to all elements of this iterable collection and a start value, going right to left.
+// op(x_1, op(x_2, ... op(x_n, z)...))
+// Can be used on an empty traversable.
+- (id)fnx_foldRightWithStartValue:(id)startValue op:(id (^)(id obj, id accumulator))op;
+
+// Tests whether a predicate holds for all elements of this collection.
+- (BOOL)fnx_forall:(BOOL (^)(id obj))pred;
+
+// Apply the given procedure fn to every element in the collection.
+- (void)fnx_foreach:(void (^)(id obj))fn;
+
+// Tests whether this collection is empty.
+- (BOOL)fnx_isEmpty;
+
+// Builds a new collection by applying a function to all elements of this collection.
+- (NSArray *)fnx_map:(id (^)(id obj))fn;
+
+// The size of this collection.
+- (NSUInteger)fnx_size;
+
+// Converts this traversable to an array.
+- (NSArray *)fnx_toArray;
+
+@end
+
+
+@interface NSArray (FNXTraversable)
+
+// Selects all elements except first n ones.
+- (NSArray *)fnx_drop:(NSUInteger)n;
+
+// Selects all elements of this collection which do not satisfy a predicate.
+- (NSArray *)fnx_filterNot:(BOOL (^)(id obj))pred;
+
+// Selects the first element of this collection.
+- (id)fnx_head;
+
+// Optionally selects the first element of this collection.
+- (id<FNXOption>)fnx_headOption;
+
+// Selects all elements except the last.
+- (NSArray *)fnx_init;
+
+// Selects the last element.
+- (id)fnx_last;
+
+// Optionally selects the last element.
+- (id<FNXOption>)fnx_lastOption;
+
+// Tests whether the collection is not empty.
+- (BOOL)fnx_nonEmpty;
+
+// Selects all elements except the first.
+- (NSArray *)fnx_tail;
+
+@end
+
+
+@interface NSArray (FNXIterable)
+
+// Returns an iterator for elements in this collection
+- (NSEnumerator *)fnx_iterator;
+
 @end

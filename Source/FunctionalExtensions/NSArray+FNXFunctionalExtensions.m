@@ -107,7 +107,7 @@
 @end
 
 
-@implementation NSArray (FNXIterable)
+@implementation NSArray (FNXTraversableOnce)
 
 // Counts the number of elements in the collection which satisfy a predicate.
 - (NSUInteger)fnx_count:(BOOL (^)(id obj))pred
@@ -119,18 +119,6 @@
         }
     }
     return result;
-}
-
-// Selects all elements except first n ones.
-- (id<FNXTraversable>)fnx_drop:(NSUInteger)n
-{
-    if (n >= self.count) {
-        return [NSArray array];
-    } else {
-        NSRange range = NSMakeRange(n, self.count - n);
-        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
-        return [self objectsAtIndexes:indexSet];
-    }
 }
 
 // Tests whether a predicate holds for some of the elements of this traversable.
@@ -145,19 +133,10 @@
 }
 
 // Selects all elements of this collection which satisfy a predicate.
-- (id<FNXTraversableOnce>)fnx_filter:(BOOL (^)(id obj))pred
+- (NSArray *)fnx_filter:(BOOL (^)(id obj))pred
 {
     NSIndexSet *indexSet = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return pred(obj);
-    }];
-    return [self objectsAtIndexes:indexSet];
-}
-
-// Selects all elements of this collection which do not satisfy a predicate.
-- (id<FNXTraversable>)fnx_filterNot:(BOOL (^)(id obj))pred
-{
-    NSIndexSet *indexSet = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return !pred(obj);
     }];
     return [self objectsAtIndexes:indexSet];
 }
@@ -217,6 +196,71 @@
     }
 }
 
+// Tests whether this collection is empty.
+- (BOOL)fnx_isEmpty
+{
+    return 0 == self.count;
+}
+
+// Builds a new collection by applying a function to all elements of this collection.
+// If fn could return nil, it must return [FNXNone none] instead and the other values
+// should be mapped as FNXSome values.
+- (NSArray *)fnx_map:(id (^)(id obj))fn
+{
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
+    for (id obj in self) {
+        [result addObject:fn(obj)];
+    }
+    return [result copy];
+}
+
+// The size of this collection.
+- (NSUInteger)fnx_size
+{
+    return self.count;
+}
+
+// Selects all elements except the first.
+- (NSArray *)fnx_tail
+{
+    // This should throw an exception if the list is empty.
+    NSRange range = NSMakeRange(1, self.count - 1);
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+    return [self objectsAtIndexes:indexSet];
+}
+
+// Converts this traversable to an array.
+- (NSArray *)fnx_toArray
+{
+    return self;
+}
+
+@end
+
+
+@implementation NSArray (FNXTraversable)
+
+// Selects all elements except first n ones.
+- (NSArray *)fnx_drop:(NSUInteger)n
+{
+    if (n >= self.count) {
+        return [NSArray array];
+    } else {
+        NSRange range = NSMakeRange(n, self.count - n);
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+        return [self objectsAtIndexes:indexSet];
+    }
+}
+
+// Selects all elements of this collection which do not satisfy a predicate.
+- (NSArray *)fnx_filterNot:(BOOL (^)(id obj))pred
+{
+    NSIndexSet *indexSet = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return !pred(obj);
+    }];
+    return [self objectsAtIndexes:indexSet];
+}
+
 // Selects the first element of this collection.
 - (id)fnx_head
 {
@@ -232,6 +276,15 @@
     } else {
         return [NSNull fnx_none];
     }
+}
+
+// Selects all elements except the last.
+- (NSArray *)fnx_init
+{
+    // This should throw an exception if the collection is empty.
+    NSRange range = NSMakeRange(0, self.count - 1);
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+    return [self objectsAtIndexes:indexSet];
 }
 
 // Selects the last element.
@@ -251,43 +304,10 @@
     }
 }
 
-// Selects all elements except the last.
-- (id<FNXTraversable>)fnx_init
-{
-    // This should throw an exception if the collection is empty.
-    NSRange range = NSMakeRange(0, self.count - 1);
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
-    return [self objectsAtIndexes:indexSet];
-}
-
-// Tests whether this collection is empty.
-- (BOOL)fnx_isEmpty
-{
-    return 0 == self.count;
-}
-
-// Builds a new collection by applying a function to all elements of this collection.
-// If fn could return nil, it must return [FNXNone none] instead and the other values
-// should be mapped as FNXSome values.
-- (id<FNXTraversableOnce>)fnx_map:(id (^)(id obj))fn
-{
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
-    for (id obj in self) {
-        [result addObject:fn(obj)];
-    }
-    return [result copy];
-}
-
 // Tests whether the mutable indexed sequence is not empty.
 - (BOOL)fnx_nonEmpty
 {
     return self.count > 0;
-}
-
-// The size of this collection.
-- (NSUInteger)fnx_size
-{
-    return self.count;
 }
 
 // Selects all elements except the first.
@@ -299,11 +319,10 @@
     return [self objectsAtIndexes:indexSet];
 }
 
-// Converts this traversable to an array.
-- (NSArray *)fnx_toArray
-{
-    return self;
-}
+@end
+
+
+@implementation NSArray (FNXIterable)
 
 - (NSEnumerator *)fnx_iterator
 {
