@@ -30,6 +30,18 @@
     return [NSOrderedSet orderedSetWithArray:self].array;
 }
 
+// Selects all elements except last n ones.
+- (NSArray *)fnx_dropRight:(NSUInteger)n
+{
+    if (n >= self.count) {
+        return [NSArray array];
+    } else {
+        NSRange range = NSMakeRange(0, self.count - n);
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+        return [self objectsAtIndexes:indexSet];
+    }
+}
+
 // Builds a new collection by applying a function to all elements of this collection
 // and using the elements of the resulting collections.
 - (NSArray *)fnx_flatMap:(NSArray *(^)(id obj))fn

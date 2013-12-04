@@ -42,6 +42,22 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             });
             
         });
+        
+        context(@"Should be able to select all elements except the last n ones", ^{
+            
+            it(@"For a nonempty collection", ^{
+                NSArray *input = @[@(10), @(20), @(30), @(40)];
+                id result = [input fnx_dropRight:2];
+                [[result should] equal:@[@(10), @(20)]];
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                id<FNXTraversable> result = [input fnx_dropRight:2];
+                [[theValue(result.fnx_size) should] equal:@(0)];
+            });
+            
+        });
 
         context(@"Should be able to return the array elements in reverse order", ^{
 

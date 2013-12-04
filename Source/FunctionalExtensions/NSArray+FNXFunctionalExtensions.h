@@ -24,6 +24,9 @@
 // Builds a new array from this collection without any duplicate elements.
 - (NSArray *)fnx_distinct;
 
+// Selects all elements except last n ones.
+- (NSArray *)fnx_dropRight:(NSUInteger)n;
+
 // Builds a new collection by applying a function to all elements of this collection
 // and using the elements of the resulting collections.
 - (NSArray *)fnx_flatMap:(NSArray *(^)(id obj))fn;
