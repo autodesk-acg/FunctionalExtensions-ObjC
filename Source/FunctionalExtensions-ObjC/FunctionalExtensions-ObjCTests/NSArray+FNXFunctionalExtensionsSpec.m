@@ -180,6 +180,38 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             
         });
         
+        context(@"Should be able to make a string from the elements of the collection", ^{
+            
+            it(@"For a nonempty collection", ^{
+                NSArray *input = @[@(10), @(20), @(30), @(20)];
+                NSString *expected = @"10203020";
+                [[input.fnx_mkString should] equal:expected];
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                NSString *expected = @"";
+                [[input.fnx_mkString should] equal:expected];
+            });
+            
+        });
+        
+        context(@"Should be able to make a string from the elements of the collection using a separator", ^{
+            
+            it(@"For a nonempty collection", ^{
+                NSArray *input = @[@(10), @(20), @(30), @(20)];
+                NSString *expected = @"10,20,30,20";
+                [[[input fnx_mkString:@","] should] equal:expected];
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                NSString *expected = @"";
+                [[[input fnx_mkString:@","] should] equal:expected];
+            });
+            
+        });
+        
     });
 
     context(@"<FNXTraversable>", ^{

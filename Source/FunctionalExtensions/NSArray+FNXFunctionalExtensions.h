@@ -55,6 +55,12 @@
 //// should be mapped as FNXSome values.
 //- (NSArray *)fnx_mapParallel:(id (^)(id obj))fn;
 
+// Displays all elements of this list in a string.
+- (NSString *)fnx_mkString;
+
+// Displays all elements of this list in a string using a separator string.
+- (NSString *)fnx_mkString:(NSString *)sep;
+
 // Returns a new collection with the elements of this collection in reversed order.
 - (NSArray *)fnx_reverse;
 

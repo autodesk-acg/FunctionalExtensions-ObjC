@@ -151,6 +151,32 @@
     return [result copy];
 }
 
+// Displays all elements of this list in a string.
+- (NSString *)fnx_mkString
+{
+    NSMutableString *result = [NSMutableString string];
+    for (id obj in self) {
+        [result appendFormat:@"%@", obj];
+    }
+    return [result copy];
+}
+
+// Displays all elements of this list in a string using a separator string.
+- (NSString *)fnx_mkString:(NSString *)sep
+{
+    NSMutableString *result = [NSMutableString string];
+    BOOL prependSep = NO;
+    for (id obj in self) {
+        if (prependSep) {
+            [result appendFormat:@"%@%@", sep, obj];
+        } else {
+            [result appendFormat:@"%@", obj];
+            prependSep = YES;
+        }
+    }
+    return [result copy];
+}
+
 // Returns a new collection with the elements of this collection in reversed order.
 - (NSArray *)fnx_reverse
 {
