@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "FunctionalExtensions-ObjC"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "Scala-style functional extensions for Apple collection classes."
 
   s.description  = <<-DESC
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.license      = 'MIT'
   s.author       = { "Kent Wong" => "kent.wong@autodesk.com" }
   s.platform     = :ios, '6.0'
-  s.source       = { :git => "https://github.com/autodesk-acg/FunctionalExtensions-ObjC.git", :tag => "0.0.3" }
+  s.source       = { :git => "https://github.com/autodesk-acg/FunctionalExtensions-ObjC.git", :tag => "0.0.4" }
   s.source_files = 'Source/FunctionalExtensions/*.{h,m}'
   s.frameworks   = 'Foundation'
   s.requires_arc = true
