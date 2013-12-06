@@ -24,4 +24,6 @@
 
 - (instancetype)initWith_1:(id)_1 _2:(id)_2;
 
++ (FNXTuple2 *)tuple2With_1:(id)_1 _2:(id)_2;
+
 @end

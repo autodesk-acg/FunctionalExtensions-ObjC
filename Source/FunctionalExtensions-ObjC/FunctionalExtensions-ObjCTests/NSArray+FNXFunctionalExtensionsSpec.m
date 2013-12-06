@@ -117,6 +117,26 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             
         });
 
+        context(@"Should be able to map the elements to a dictionary", ^{
+            
+            it(@"For a nonempty collection", ^{
+                NSArray *input = @[@(10), @(20), @(30), @(20)];
+                NSDictionary *expected = @{ @(20): @(20*2), @(30):@(30*2), @(10):@(10*2) };
+                [[[input fnx_mapToDictionary:^FNXTuple2 *(NSNumber *obj) {
+                    return [FNXTuple2 tuple2With_1:obj _2:@(obj.intValue * 2)];
+                }] should] equal:expected];
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                NSDictionary *expected = @{};
+                [[[input fnx_mapToDictionary:^FNXTuple2 *(NSNumber *obj) {
+                    return [FNXTuple2 tuple2With_1:obj _2:@(obj.intValue * 2)];
+                }] should] equal:expected];
+            });
+            
+        });
+
         context(@"Should be able to return the array elements in reverse order", ^{
 
             it(@"For a nonempty collection", ^{
@@ -208,6 +228,24 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
                 NSArray *input = @[];
                 NSString *expected = @"";
                 [[[input fnx_mkString:@","] should] equal:expected];
+            });
+            
+        });
+        
+        context(@"Should be able to convert a collection of FNXTuple2 objects to a dictionary", ^{
+            
+            it(@"For a nonempty collection", ^{
+                NSArray *input = @[[FNXTuple2 tuple2With_1:@(10) _2:@(10*2)],
+                                   [FNXTuple2 tuple2With_1:@(20) _2:@(20*2)],
+                                   [FNXTuple2 tuple2With_1:@(30) _2:@(30*2)]];
+                NSDictionary *expected = @{ @(10):@(10*2), @(20): @(20*2), @(30):@(30*2) };
+                [[[input fnx_toDictionary] should] equal:expected];
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                NSDictionary *expected = @{};
+                [[[input fnx_toDictionary] should] equal:expected];
             });
             
         });

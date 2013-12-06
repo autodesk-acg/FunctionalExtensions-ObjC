@@ -19,6 +19,7 @@
 #import "FNXOption.h"
 #import "FNXSome.h"
 #import "FNXNone.h"
+#import "FNXTuple2.h"
 
 
 @implementation NSArray (FNXFunctionalExtensions)
@@ -151,6 +152,20 @@
     return [result copy];
 }
 
+// Builds a new collection by applying a function to all elements of this collection.
+// If fn could return nil, it must return [FNXNone none] instead and the other values
+// should be mapped as FNXSome values.
+// The FNXTuple2 object returned from fn should have _1 as the key and _2 as the value.
+- (NSDictionary *)fnx_mapToDictionary:(FNXTuple2 *(^)(id obj))fn
+{
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:self.count];
+    for (id obj in self) {
+        FNXTuple2 *tuple2 = fn(obj);
+        result[tuple2._1] = tuple2._2;
+    }
+    return [result copy];
+}
+
 // Displays all elements of this list in a string.
 - (NSString *)fnx_mkString
 {
@@ -181,6 +196,17 @@
 - (NSArray *)fnx_reverse
 {
     return (0 == self.count) ? [NSArray array] : self.reverseObjectEnumerator.allObjects;
+}
+
+// Returns a dictionary assuming that this collection contains elements that are FNXTuple2 objects, where _1 is the
+// key and _2 is the value.
+- (NSDictionary *)fnx_toDictionary
+{
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    for (FNXTuple2 *tuple2 in self) {
+        result[tuple2._1] = tuple2._2;
+    }
+    return [result copy];
 }
 
 @end

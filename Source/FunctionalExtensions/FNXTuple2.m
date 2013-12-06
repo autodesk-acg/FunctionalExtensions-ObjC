@@ -29,4 +29,9 @@
     return self;
 }
 
++ (FNXTuple2 *)tuple2With_1:(id)_1 _2:(id)_2
+{
+    return [[FNXTuple2 alloc] initWith_1:_1 _2:_2];
+}
+
 @end

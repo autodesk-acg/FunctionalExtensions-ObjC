@@ -17,6 +17,8 @@
 #import <Foundation/Foundation.h>
 #import "FNXTraversable.h"
 
+@class FNXTuple2;
+
 
 // Scala-style functional extensions for NSArray.
 @interface NSArray (FNXFunctionalExtensions) <FNXIterable>
@@ -55,6 +57,12 @@
 //// should be mapped as FNXSome values.
 //- (NSArray *)fnx_mapParallel:(id (^)(id obj))fn;
 
+// Builds a new collection by applying a function to all elements of this collection.
+// If fn could return nil, it must return [FNXNone none] instead and the other values
+// should be mapped as FNXSome values.
+// The FNXTuple2 object returned from fn should have _1 as the key and _2 as the value.
+- (NSDictionary *)fnx_mapToDictionary:(FNXTuple2 *(^)(id obj))fn;
+
 // Displays all elements of this list in a string.
 - (NSString *)fnx_mkString;
 
@@ -63,6 +71,10 @@
 
 // Returns a new collection with the elements of this collection in reversed order.
 - (NSArray *)fnx_reverse;
+
+// Returns a dictionary assuming that this collection contains elements that are FNXTuple2 objects, where _1 is the
+// key and _2 is the value.
+- (NSDictionary *)fnx_toDictionary;
 
 @end
 
