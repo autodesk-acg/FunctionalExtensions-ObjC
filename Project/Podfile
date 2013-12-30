@@ -5,4 +5,4 @@ target 'FunctionalExtensions-ObjCTests', :exclusive => true do
 	pod 'Kiwi/XCTest', '~> 2.2.3'
 end
 
-pod 'FunctionalExtensions-ObjC', :path => '../..'
+pod 'FunctionalExtensions-ObjC', :path => '..'

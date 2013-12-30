@@ -1,5 +1,5 @@
 PODS:
-  - FunctionalExtensions-ObjC (0.0.3)
+  - FunctionalExtensions-ObjC (0.0.6)
   - Kiwi/ARC (2.2.3)
   - Kiwi/NonARC (2.2.3)
   - Kiwi/XCTest (2.2.3):
@@ -7,15 +7,15 @@ PODS:
     - Kiwi/NonARC
 
 DEPENDENCIES:
-  - FunctionalExtensions-ObjC (from `../..`)
+  - FunctionalExtensions-ObjC (from `..`)
   - Kiwi/XCTest (~> 2.2.3)
 
 EXTERNAL SOURCES:
   FunctionalExtensions-ObjC:
-    :path: ../..
+    :path: ..
 
 SPEC CHECKSUMS:
-  FunctionalExtensions-ObjC: 668d3ced3e3ecad274bec145fd7168da7bb6eeb0
+  FunctionalExtensions-ObjC: 05cc451689fd2104291bc8b8e96f7ffe6808d034
   Kiwi: 04c51e880831d291748ec702d42c4101f7eb95c9
 
-COCOAPODS: 0.28.0
+COCOAPODS: 0.29.0
