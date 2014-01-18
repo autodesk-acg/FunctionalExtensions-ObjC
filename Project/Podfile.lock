@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: ..
 
 SPEC CHECKSUMS:
-  FunctionalExtensions-ObjC: 05cc451689fd2104291bc8b8e96f7ffe6808d034
+  FunctionalExtensions-ObjC: 1fa0834a51a4fd6fbb3e1d95010fee297a77f87b
   Kiwi: 04c51e880831d291748ec702d42c4101f7eb95c9
 
 COCOAPODS: 0.29.0
