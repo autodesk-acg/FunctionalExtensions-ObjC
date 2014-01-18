@@ -14,7 +14,8 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/autodesk-acg/FunctionalExtensions-ObjC"
   s.license      = 'MIT'
   s.author       = { "Kent Wong" => "kent.wong@autodesk.com" }
-  s.platform     = :ios, '6.0'
+  s.ios.deployment_target = '6.0'
+  s.osx.deployment_target = '10.7'
   s.source       = { :git => "https://github.com/autodesk-acg/FunctionalExtensions-ObjC.git", :tag => "0.0.6" }
   s.source_files = 'Classes/*.{h,m}'
   s.frameworks   = 'Foundation'
