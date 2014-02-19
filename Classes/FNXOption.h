@@ -18,7 +18,7 @@
 #import "FNXTraversable.h"
 
 
-@protocol FNXOption <NSObject>
+@protocol FNXOption <FNXTraversableOnce>
 
 // Returns the option's value.
 // Abstract
@@ -31,52 +31,21 @@
 // Abstract
 - (BOOL)fnx_isDefined;
 
-// Returns this ADFNXOption if it is nonempty, otherwise return the result of evaluating alternative.
+// Returns this FNXOption if it is nonempty, otherwise return the result of evaluating alternative.
 - (id<FNXOption>)fnx_orElse:(id<FNXOption>(^)(void))alternative;
 
 - (id<FNXIterable>)fnx_toIterable;
 
 #pragma mark - FNXTraversableOnce
 
-// Counts the number of elements in the collection which satisfy a predicate.
-- (NSUInteger)fnx_count:(BOOL (^)(id obj))pred;
-
-// Tests whether a predicate holds for some of the elements of this traversable.
-- (BOOL)fnx_exists:(BOOL (^)(id obj))pred;
-
 // Selects all elements of this collection which satisfy a predicate.
 - (id<FNXOption>)fnx_filter:(BOOL (^)(id obj))pred;
-
-// Finds the first element of the collection satisfying a predicate, if any.
-- (id<FNXOption>)fnx_find:(BOOL (^)(id obj))pred;
-
-// Applies a binary operator to a start value and all elements of this collection, going left to right.
-// op(...op(startValue, x_1), x_2, ..., x_n)
-// Can be used on an empty traversable.
-- (id)fnx_foldLeftWithStartValue:(id)startValue op:(id (^)(id accumulator, id obj))op;
-
-// Applies a binary operator to all elements of this iterable collection and a start value, going right to left.
-// op(x_1, op(x_2, ... op(x_n, z)...))
-// Can be used on an empty traversable.
-- (id)fnx_foldRightWithStartValue:(id)startValue op:(id (^)(id obj, id accumulator))op;
-
-// Tests whether a predicate holds for all elements of this collection.
-- (BOOL)fnx_forall:(BOOL (^)(id obj))pred;
-
-// Apply the given procedure fn to every element in the collection.
-- (void)fnx_foreach:(void (^)(id obj))fn;
-
-// Tests whether this collection is empty.
-- (BOOL)fnx_isEmpty;
 
 // Builds a new collection by applying a function to all elements of this collection.
 - (id<FNXOption>)fnx_map:(id (^)(id obj))fn;
 
-// The size of this collection.
-- (NSUInteger)fnx_size;
-
-// Converts this traversable to an array.
-- (NSArray *)fnx_toArray;
+// Returns the result of applying fn to this Option's value if this Option is nonempty.
+- (id<FNXOption>)fnx_flatMap:(id<FNXOption> (^)(id obj))fn;
 
 #pragma mark - FNXTraversable
 

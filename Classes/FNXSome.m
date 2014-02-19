@@ -229,7 +229,7 @@
     return YES;
 }
 
-// Returns this ADFNXOption if it is nonempty, otherwise return the result of evaluating alternative.
+// Returns this FNXOption if it is nonempty, otherwise return the result of evaluating alternative.
 - (id<FNXOption>)fnx_orElse:(id<FNXOption>(^)(void))alternative
 {
     return self;
@@ -238,6 +238,12 @@
 - (id<FNXIterable>)fnx_toIterable
 {
     return [FNXOptionAsIterable optionAsIterableWithOption:self];
+}
+
+// Returns the result of applying fn to this Option's value if this Option is nonempty.
+- (id<FNXOption>)fnx_flatMap:(id<FNXOption> (^)(id obj))fn
+{
+    return fn(_value);
 }
 
 #pragma mark - FNXSome

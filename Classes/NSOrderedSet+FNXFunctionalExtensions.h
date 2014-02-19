@@ -22,7 +22,7 @@
 
 // Builds a new collection by applying a function to all elements of this collection
 // and using the elements of the resulting collections.
-- (NSOrderedSet *)fnx_flatMap:(NSArray *(^)(id obj))fn;
+- (NSOrderedSet *)fnx_flatMap:(id<FNXTraversableOnce> (^)(id obj))fn;
 
 // Returns a new collection with the elements of this collection in reversed order.
 - (NSOrderedSet *)fnx_reverse;

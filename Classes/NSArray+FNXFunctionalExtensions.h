@@ -34,7 +34,7 @@
 
 // Builds a new collection by applying a function to all elements of this collection
 // and using the elements of the resulting collections.
-- (NSArray *)fnx_flatMap:(NSArray *(^)(id obj))fn;
+- (NSArray *)fnx_flatMap:(id<FNXTraversableOnce> (^)(id obj))fn;
 
 // Invokes pred for elements of this collection. Returns NO if any results return NO; YES, otherwise.
 // pred must be a method on the element that takes no arguments and returns BOOL.

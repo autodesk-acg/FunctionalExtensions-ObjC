@@ -86,11 +86,11 @@
 
 // Builds a new collection by applying a function to all elements of this collection
 // and using the elements of the resulting collections.
-- (NSArray *)fnx_flatMap:(NSArray *(^)(id obj))fn
+- (NSArray *)fnx_flatMap:(id<FNXTraversableOnce> (^)(id obj))fn
 {
     NSMutableArray *result = [NSMutableArray array];
     for (id obj in self) {
-        [result addObjectsFromArray:fn(obj)];
+        [result addObjectsFromArray:fn(obj).fnx_toArray];
     }
     return [result copy];
 }

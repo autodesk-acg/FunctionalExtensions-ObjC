@@ -60,9 +60,9 @@
 }
 
 // Selects all elements of this collection which satisfy a predicate.
-- (id<FNXTraversableOnce>)fnx_filter:(BOOL (^)(id obj))pred
+- (id<FNXOption>)fnx_filter:(BOOL (^)(id obj))pred
 {
-    return [_option fnx_filter:pred].fnx_toIterable;
+    return [_option fnx_filter:pred];
 }
 
 // Finds the first element of the collection satisfying a predicate, if any.
