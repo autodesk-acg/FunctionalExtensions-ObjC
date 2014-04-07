@@ -22,7 +22,7 @@ SPEC_BEGIN(FNXSomeSpec)
 
 describe(@"FNXSome", ^{
 
-    FNXSome *input = [FNXSome someWithValue:@(10)];
+    id<FNXSome> input = [FNXSome someWithValue:@(10)];
 
     context(@"<FNXTraversableOnce>", ^{
         
