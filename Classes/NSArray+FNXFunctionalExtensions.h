@@ -115,8 +115,17 @@
 // Builds a new collection by applying a function to all elements of this collection.
 - (NSArray *)fnx_map:(id (^)(id obj))fn;
 
+// The largest element in this collection.
+- (NSNumber *)fnx_max;
+
+// The smallest element in this collection.
+- (NSNumber *)fnx_min;
+
 // The size of this collection.
 - (NSUInteger)fnx_size;
+
+// The sum of all elements in this collection of NSNumber objects.
+- (NSNumber *)fnx_sum;
 
 // Converts this traversable to an array.
 - (NSArray *)fnx_toArray;

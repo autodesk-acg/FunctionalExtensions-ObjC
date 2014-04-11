@@ -717,6 +717,100 @@ describe(@"NSArray+FNXFunctionalExtensions", ^{
             
         });
         
+        context(@"Should be able to find the largest value", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"of integers", ^{
+                    NSArray *input = @[@(100), @(20)];
+                    NSNumber *max = [input fnx_max];
+                    [[theValue(max.longValue) should] equal:@(100)];
+                });
+                it(@"of floats", ^{
+                    NSArray *input = @[@(11.5f), @(20.1f)];
+                    NSNumber *max = [input fnx_max];
+                    [[theValue(max.floatValue) should] equal:@(20.1f)];
+                });
+                it(@"of mixed numeric types", ^{
+                    NSArray *input = @[@(11), @(20.1f)];
+                    NSNumber *max = [input fnx_max];
+                    [[theValue(max.floatValue) should] equal:@(20.1f)];
+                });
+                it(@"of strings", ^{
+                    NSArray *input = @[@"Bob", @"Martin", @"Apple"];
+                    id max = [input fnx_max];
+                    [[max should] equal:@"Martin"];
+                });
+            });
+            
+            it(@"Should throw on an empty collection", ^{
+                [[theBlock(^{
+                    [@[] fnx_max];
+                }) should] raise];
+            });
+            
+        });
+        
+        context(@"Should be able to find the smallest value", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"of integers", ^{
+                    NSArray *input = @[@(100), @(20)];
+                    NSNumber *min = [input fnx_min];
+                    [[theValue(min.longValue) should] equal:@(20)];
+                });
+                it(@"of floats", ^{
+                    NSArray *input = @[@(11.5f), @(20.1f)];
+                    NSNumber *min = [input fnx_min];
+                    [[theValue(min.floatValue) should] equal:@(11.5f)];
+                });
+                it(@"of mixed numeric types", ^{
+                    NSArray *input = @[@(11), @(20.1f)];
+                    NSNumber *min = [input fnx_min];
+                    [[theValue(min.floatValue) should] equal:@(11.0f)];
+                });
+                it(@"of strings", ^{
+                    NSArray *input = @[@"Bob", @"Martin", @"Apple"];
+                    id min = [input fnx_min];
+                    [[min should] equal:@"Apple"];
+                });
+            });
+
+            it(@"Should throw on an empty collection", ^{
+                [[theBlock(^{
+                    [@[] fnx_min];
+                }) should] raise];
+            });
+            
+        });
+
+        context(@"Should be able to sum numeric elements", ^{
+            
+            context(@"For a nonempty collection", ^{
+                it(@"of integers", ^{
+                    NSArray *input = @[@(100), @(20)];
+                    NSNumber *sum = [input fnx_sum];
+                    [[theValue(sum.longValue) should] equal:@(120)];
+                });
+                it(@"of floats", ^{
+                    NSArray *input = @[@(11.5f), @(20.1f)];
+                    NSNumber *sum = [input fnx_sum];
+                    [[theValue(sum.floatValue) should] equal:@(31.6f)];
+                });
+                it(@"of mixed numeric types", ^{
+                    NSArray *input = @[@(11), @(20.1f)];
+                    NSNumber *sum = [input fnx_sum];
+                    [[theValue(sum.floatValue) should] equal:@(31.1f)];
+                });
+            });
+            
+            it(@"For an empty collection", ^{
+                NSArray *input = @[];
+                NSNumber *sum = [input fnx_sum];
+                [[theValue(sum.longValue) should] equal:@(0)];
+            });
+            
+        });
+
         context(@"Should be able to select all the elements except the first one", ^{
             context(@"For a nonempty collection", ^{
                 it(@"With one element", ^{

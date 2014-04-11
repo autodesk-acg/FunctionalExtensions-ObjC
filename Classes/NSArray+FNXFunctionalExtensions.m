@@ -319,10 +319,43 @@
     return [result copy];
 }
 
+// The largest element in this collection.
+- (NSNumber *)fnx_max
+{
+    if (self.fnx_isEmpty) {
+        @throw [[NSException alloc] initWithName:@"FNXUnsupportedOperation"
+                                          reason:NSLocalizedString(@"empty.max", @"Message when [NSArray fnx_max] is called")
+                                        userInfo:nil];
+    } else {
+        // Simplest implementation using KVO Collection Operators.
+        return [self valueForKeyPath: @"@max.self"];
+    }
+}
+
+// The smallest element in this collection.
+- (NSNumber *)fnx_min
+{
+    if (self.fnx_isEmpty) {
+        @throw [[NSException alloc] initWithName:@"FNXUnsupportedOperation"
+                                          reason:NSLocalizedString(@"empty.min", @"Message when [NSArray fnx_min] is called")
+                                        userInfo:nil];
+    } else {
+        // Simplest implementation using KVO Collection Operators.
+        return [self valueForKeyPath: @"@min.self"];
+    }
+}
+
 // The size of this collection.
 - (NSUInteger)fnx_size
 {
     return self.count;
+}
+
+// The sum of all elements in this collection of NSNumber objects.
+- (NSNumber *)fnx_sum
+{
+    // Simplest implementation using KVO Collection Operators.
+    return [self valueForKeyPath: @"@sum.self"];
 }
 
 // Selects all elements except the first.

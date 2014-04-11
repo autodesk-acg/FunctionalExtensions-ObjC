@@ -141,7 +141,7 @@
 // Selects all elements except the last.
 - (id<FNXTraversable>)fnx_init
 {
-    @throw [[NSException alloc] initWithName:@"ADFNXUnsupportedOperation"
+    @throw [[NSException alloc] initWithName:@"FNXUnsupportedOperation"
                                       reason:NSLocalizedString(@"Empty initial", @"Message when [ADFNXNone initial] is called")
                                     userInfo:nil];
 }
@@ -155,7 +155,7 @@
 // Selects all elements except the first.
 - (id<FNXTraversable>)fnx_tail
 {
-    @throw [[NSException alloc] initWithName:@"ADFNXUnsupportedOperation"
+    @throw [[NSException alloc] initWithName:@"FNXUnsupportedOperation"
                                       reason:NSLocalizedString(@"Tail of empty list", @"Message when [ADFNXNone tail] is called")
                                     userInfo:nil];
 }
