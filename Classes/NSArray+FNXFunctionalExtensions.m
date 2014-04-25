@@ -448,6 +448,25 @@
     return self.count > 0;
 }
 
+// Partitions this traversable collection in two NSArray objects according to a predicate.
+// Returns a pair of NSArray objects. The first collection consists of all elements that satisfy
+// the predicate pred and
+// the second traversable collection consists of all elements that don't. The relative order of
+// the elements in the resulting collections is the same as in the original collection.
+- (FNXTuple2 *)fnx_partition:(BOOL (^)(id obj))pred
+{
+    NSMutableArray *satisfies = [NSMutableArray array];
+    NSMutableArray *fails = [NSMutableArray array];
+    for (id obj in self) {
+        if (pred(obj)) {
+            [satisfies addObject:obj];
+        } else {
+            [fails addObject:obj];
+        }
+    }
+    return [FNXTuple2 tuple2With_1:[satisfies copy] _2:[fails copy]];
+}
+
 // Selects all elements except the first.
 - (id<FNXTraversable>)fnx_tail
 {
