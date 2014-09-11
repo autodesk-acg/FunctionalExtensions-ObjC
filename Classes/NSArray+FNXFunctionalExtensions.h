@@ -167,7 +167,7 @@
 - (FNXTuple2 *)fnx_partition:(BOOL (^)(id obj))pred;
 
 // Selects all elements except the first.
-- (NSArray *)fnx_tail;
+- (id<FNXTraversable>)fnx_tail;
 
 @end
 

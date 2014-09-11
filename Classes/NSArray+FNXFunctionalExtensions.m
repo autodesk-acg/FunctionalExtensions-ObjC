@@ -359,7 +359,7 @@
 }
 
 // Selects all elements except the first.
-- (NSArray *)fnx_tail
+- (id<FNXTraversable>)fnx_tail
 {
     // This should throw an exception if the list is empty.
     NSRange range = NSMakeRange(1, self.count - 1);
