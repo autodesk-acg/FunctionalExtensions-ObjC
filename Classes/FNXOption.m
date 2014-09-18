@@ -104,7 +104,7 @@
 }
 
 // Builds a new collection by applying a function to all elements of this collection.
-- (id<FNXTraversableOnce>)fnx_map:(id (^)(id obj))fn
+- (id<FNXTraversable>)fnx_map:(id (^)(id obj))fn
 {
     return [_option fnx_map:fn].fnx_toIterable;
 }

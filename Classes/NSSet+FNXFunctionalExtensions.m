@@ -50,7 +50,7 @@
 }
 
 // Selects all elements of this collection which satisfy a predicate.
-- (id<FNXTraversableOnce>)fnx_filter:(BOOL (^)(id obj))pred
+- (id<FNXTraversable>)fnx_filter:(BOOL (^)(id obj))pred
 {
     NSArray *allObjects = self.allObjects;
     NSIndexSet *indexSet = [allObjects indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
@@ -120,7 +120,7 @@
 // Builds a new collection by applying a function to all elements of this collection.
 // If fn could return nil, it must return [FNXNone none] instead and the other values
 // should be mapped as FNXSome values.
-- (id<FNXTraversableOnce>)fnx_map:(id (^)(id obj))fn
+- (id<FNXTraversable>)fnx_map:(id (^)(id obj))fn
 {
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
     for (id obj in self) {

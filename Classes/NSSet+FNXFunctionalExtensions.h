@@ -31,7 +31,7 @@
 - (BOOL)fnx_exists:(BOOL (^)(id obj))pred;
 
 // Selects all elements of this collection which satisfy a predicate.
-- (id<FNXTraversableOnce>)fnx_filter:(BOOL (^)(id obj))pred;
+- (id<FNXTraversable>)fnx_filter:(BOOL (^)(id obj))pred;
 
 // Finds the first element of the collection satisfying a predicate, if any.
 - (id<FNXOption>)fnx_find:(BOOL (^)(id obj))pred;
@@ -56,7 +56,7 @@
 - (BOOL)fnx_isEmpty;
 
 // Builds a new collection by applying a function to all elements of this collection.
-- (id<FNXTraversableOnce>)fnx_map:(id (^)(id obj))fn;
+- (id<FNXTraversable>)fnx_map:(id (^)(id obj))fn;
 
 // The size of this collection.
 - (NSUInteger)fnx_size;

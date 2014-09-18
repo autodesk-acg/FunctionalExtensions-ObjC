@@ -1,17 +1,17 @@
 PODS:
-  - FunctionalExtensions-ObjC (0.0.7)
-  - Kiwi (2.3.0)
+  - FunctionalExtensions-ObjC (0.0.9)
+  - Kiwi (HEAD based on 2.3.0)
 
 DEPENDENCIES:
   - FunctionalExtensions-ObjC (from `..`)
-  - Kiwi (~> 2.3.0)
+  - Kiwi (HEAD)
 
 EXTERNAL SOURCES:
   FunctionalExtensions-ObjC:
     :path: ..
 
 SPEC CHECKSUMS:
-  FunctionalExtensions-ObjC: 09e521c164860ef6a332d45a5073f87ed1831fd0
+  FunctionalExtensions-ObjC: 7edf6197478233c3ad486ff17ec5e90f450819a4
   Kiwi: 54bece5b35564d9b8e03c608d926f1a22fcfc589
 
 COCOAPODS: 0.33.1
